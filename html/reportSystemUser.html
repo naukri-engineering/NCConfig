@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Report : System Users</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+			<form method=post>
+				<input type=hidden name='systemUserId' value='~$systemUserId`'>
+				<div class='SColumn'>
+					<div class='row-main-drop'>
+						<div class='row-label-main'><label for="systemUserId" class='row-label'>System User <span class='required'>*</span></label></div>
+						<div class='row-box'>
+							<select id='systemUserId' name='systemUserId' data-placeholder="Choose a System User ..." class="chzn-select selectcl">
+								<option value=""></option>
+								~section name=i loop=$systemUsers`
+								<option value='~$systemUsers[i].systemUserId`' ~if $systemUsers[i].systemUserId eq $systemUserId`selected~/if`>~$systemUsers[i].systemUserRefName` ( ~$systemUsers[i].username` )</option>
+								~/section`
+							</select>
+							<div class='err' ~if !$err.systemUserId` style='display:none'~/if`>~$err.systemUserId`</div>
+						</div>
+					</div>
+					<div class="cl10"></div>
+					<div style='float:right;margin-bottom:5px;'><span class='required'>*</span> Required fields&nbsp;&nbsp;&nbsp;</div>
+					<div class="cl10"></div>
+				</div>
+				<div class="NavigationButtons">
+					<button class="NextButton" id="NextButton" name='submit' value='submit'>Submit</button>
+				</div>
+			</form>
+
+
+            ~if $systemUserReport`
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id='table1' style='font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;border:1px solid #6E6E6E'>
+                <thead style='background-color:#A4A4A4;color:white;text-align:left;'>
+                    <tr>
+                        <th>Service Type</th>
+                        <th>Server</th>
+                        <th>Service</th>
+                        <th>Application</th>
+                    </tr>
+                </thead>
+                <tbody style='color:black;'>
+                ~section name=i loop=$systemUserReport`
+                <tr>
+                    <td><a style='color:#1F6D34;' href='~$DOMAIN`report/serviceType?serviceTypeId=~$systemUserReport[i].serviceTypeId`'>~$systemUserReport[i].serviceTypeName`</a></td>
+                    <td><a style='color:#1F6D34;' href='~$DOMAIN`report/server?serverId=~$systemUserReport[i].serverId`'>~$systemUserReport[i].serverName`</a> (~$systemUserReport[i].serverIP`)</td>
+                    <td><a style='color:#1F6D34;' href='~$DOMAIN`report/service?serviceId=~$systemUserReport[i].serviceId`'>~$systemUserReport[i].serviceRefName`</a> (~$systemUserReport[i].servicePort`)</td>
+					<td><a style='color:#1F6D34;' href='~$DOMAIN`report/application?applicationId=~$systemUserReport[i].applicationId`'>~$systemUserReport[i].applicationName`</a></td>
+                </tr>
+                ~/section`
+                </tbody>
+            </table>
+            <br/><br/>
+            ~/if`
+			<!-- END | Report -->
+		</div>
+    </div>
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+
+	<!-- Table Data | Start -->
+	~include file=_tabledata.html`
+	<!-- Table Data | End -->
+
+	<script>drop_down();</script>
+</body>
+</html>

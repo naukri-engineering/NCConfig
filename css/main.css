@@ -1,0 +1,807 @@
+body {
+    background-attachment: fixed;
+    background-position: center top;
+    background-repeat: no-repeat;
+    color: #636468;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+}
+.clearfix:after, .container:after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+div#BodyHeader {
+    min-height: 100px;
+    z-index: 10;
+}
+.clearfix, .container {
+    display: block;
+}
+.container {
+    margin: 0 auto;
+    width: 955px;
+}
+body div#BodyHeader div#ShellHeaderContent {
+    position: relative;
+    text-align: left;
+    z-index: 20;
+}
+div#ShellHeaderContent div#ShellMeBarArea {
+    height: 85px;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    position: relative;
+}
+
+div#ShellHeaderContent div#ShellMeBarArea a, div#ShellHeaderContent div#ShellMeBarArea a:visited {
+    color: #77BB44;
+}
+body div#BodyHeader a {
+    font-weight: normal;
+}
+a, a:visited {
+    text-decoration: none;
+}
+div#ShellHeaderContent div#ShellMeBarArea div#ShellLogo {
+    background-image: url("../images/logo.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 80px;
+    left: 0px;
+    position: absolute;
+    top: 5px;
+    width: 280px;
+}
+div#ShellHeaderContent div#ShellMeBarArea div#HeadShotBox.SignedOut {
+    background-image: url("../images/headbox-signedout.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+div#ShellHeaderContent div#ShellMeBarArea div#HeadShotBox {
+    height: 80px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 70px;
+}
+div#ShellHeaderContent div#ShellMeBarArea div#ShellMeBar {
+    font-family: 'Segoe UI',Arial,Sans-Serif;
+    height: 80px;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    width: 700px;
+}
+div#ShellHeaderContent div#ShellMeBarArea div.GamerStatArea {
+    bottom: 39px;
+    color: #BDBEC1;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    width: 100%;
+}
+div#ShellHeaderContent div#ShellMeBarArea div#ShellMeBar.SignedOut div.GamerStatArea div.WelcomeText {
+    background-image: url("../images/xboxlive.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    color: #636468;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    height: 20px;
+    padding-right: 104px;
+    padding-top: 1px;
+}
+div#ShellHeaderContent div#ShellMeBarArea div.LinkArea {
+    color: #BDBEC1;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 44px;
+    width: 100%;
+}
+
+div#ShellHeaderContent div#ShellMeBarArea div#ShellMeBar.SignedOut div.LinkArea a {
+    font-size: 12px;
+}
+div#ShellHeaderContent div#ShellMeBarArea a, div#ShellHeaderContent div#ShellMeBarArea a:visited {
+    color: #77BB44;
+}
+body div#BodyHeader a {
+    font-weight: normal;
+}
+
+div#ShellHeaderContent div#ShellMeBarArea div#ShellMeBar.SignedOut div.LinkArea span.spread, div#ShellHeaderContent div#ShellMeBarArea div#ShellMeBar.SignedIn div.LinkArea span.spread {
+    background-image: url("../images/glyph-pipe.png");
+    background-position: 7px center;
+    background-repeat: no-repeat;
+    padding-left: 15px;
+}
+
+div#ShellHeaderContent div#ShellMeBarArea div#ShellMeBar.SignedOut div.LinkArea a {
+    font-size: 12px;
+}
+div#ShellHeaderContent div#ShellMeBarArea a, div#ShellHeaderContent div#ShellMeBarArea a:visited {
+    color: #77BB44;
+}
+
+
+body div#BodyHeader div#ShellNavigationBar div.SearchArea {
+    display: block;
+    float: right;
+    margin-bottom: 8px;
+    margin-top: 7px;
+}
+
+body div#BodyHeader div#ShellNavigationBar div.SearchArea input.WatermarkColor {
+    color: #2B9646;
+}
+body div#BodyHeader div#ShellNavigationBar div.SearchArea input.TextBox {
+    border: 0 none;
+    float: left;
+    font-family: 'Segoe UI',Arial,Sans-Serif;
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    margin: 0;
+    padding: 0 0 0 5px;
+    width: 160px;
+}
+
+body div#BodyHeader div#ShellNavigationBar div.SearchArea input[type="button"] {
+    background-color: #2CA243;
+    background-image: url("../images/looking_glass.png");
+    background-repeat: no-repeat;
+    border: 0 none;
+    cursor: pointer;
+    float: left;
+    height: 25px;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+    width: 25px;
+}
+
+div#BodyHeader div#ShellHeaderContent div#BreadcrumbsPlaceholder {
+    height: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.clearfix:after, .container:after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+div#BodyContent {
+    min-height: 280px;
+}
+.clearfix, .container {
+    display: block;
+}
+.container {
+    margin: 0 auto;
+    width: 955px;
+}
+
+.grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, .grid-11, .grid-12, .grid-13, .grid-14, .grid-15, .grid-16, .grid-17, .grid-18, .grid-19, .grid-20, .grid-21, .grid-22, .grid-23, .grid-24 {
+    overflow: hidden;
+}
+.tWrapper {
+    border-bottom: 1px solid #BDBEC1;
+    clear: both;
+    color: #636468;
+    margin-bottom: 20px;
+}
+
+a, a:visited {
+    color: #77BB44;
+    text-decoration: none;
+}
+div#BodyContent h1, div#BodyContent h2, div#BodyContent h3, div#BodyContent h4 {
+    line-height: 120%;
+}
+.tWrapper h1 {
+    margin: 0;
+}
+h1 {
+    font-size: 30px;
+}
+
+ul.twist {
+    margin: 0;
+    padding: 0;
+}
+
+ul.twist li {
+    display: block;
+    float: left;
+    font-size: 18px;
+    margin: 0 20px 5px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #636468;
+    font-family: 'Segoe UI',Arial,Sans-Serif;
+    font-weight: normal;
+}
+
+.tWrapper a {
+    font-weight: normal;
+}
+body div#BodyFooter {
+    clear: both;
+    margin-top: 40px;
+    width: 100%;
+}
+
+body div#BodyFooter div#ShellFooterContent a {
+    color: #BDBEC1;
+    font-weight: normal;
+}
+
+
+body div#BodyFooter div#ShellFooterContent div.PrimaryContent div#ShellFooterNavigation a.spread, body div#BodyFooter div#ShellFooterContent div.SecondaryContent div#ShellFooterSecondaryNavigation a.spread {
+    background-image: url("../images/glyph-pipe.png");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+}
+
+body div#BodyFooter div#ShellFooterContent {
+    background-color: #333333;
+    background-image: url("../images/Footer-gradient.jpg");
+    background-repeat: repeat-x;
+    color: #BDBEC1;
+    font-size: 14px;
+    min-height: 90px;
+    min-width: 995px;
+    text-align: center;
+}
+
+body div#BodyFooter div#ShellFooterContent div.PrimaryContent {
+    font-size: 12px;
+    margin: 0 auto;
+    overflow: auto;
+    padding: 20px 0 10px;
+    width: 955px;
+}
+
+body div#BodyFooter div#ShellFooterContent div.PrimaryContent div#ShellRightContentArea {
+    float: right;
+    text-align: right;
+    width: 237px;
+}
+
+body div#BodyFooter div#ShellFooterContent div.PrimaryContent div#ShellFooterNavigation {
+    float: left;
+    font-size: 14px;
+    margin-right: 14px;
+    margin-top: 10px;
+}
+.ShellFooterSocial {
+    float: left;
+    margin-top: 10px;
+}
+
+body div#BodyFooter div#ShellFooterContent div.PrimaryContent div#ShellLeftContentArea {
+    clear: left;
+    float: left;
+    margin: 0;
+    max-height: 40px;
+    overflow: hidden;
+}
+
+body div#BodyFooter div#ShellFooterContent div.SecondaryContent {
+    border-top: 1px solid #BDBEC1;
+    font-size: 12px;
+    margin: 0 auto;
+    overflow: auto;
+    padding: 10px 0;
+    width: 955px;
+}
+body div#BodyFooter div#ShellFooterContent div.SecondaryContent div#LogoAndCopyright {
+    float: right;
+}
+body div#BodyFooter div#ShellFooterContent div.PrimaryContent div#ShellFooterNavigation {
+    font-size: 14px;
+}
+
+.SColumn {
+    border: 1px solid #E2E2E2; padding:15px 0px; margin:0px 0px 10px 0px;
+}
+.cl05{overflow:hidden; height:5px; clear:both;}
+.cl10{overflow:hidden; height:10px; clear:both;}
+.cl20{overflow:hidden; height:20px; clear:both;}
+.NavigationButtons {
+    clear: both;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+button, input[type="submit"], input[type="button"] {
+    background-color: #77BB44;
+    border: 1px solid #77BB44;
+    color: White;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    height: 25px;
+    min-width: 95px;
+    overflow: visible;
+    padding: 0 20px;
+}
+
+button.CancelButton, .CancelButton[type="button"], .CancelButton[type="submit"], button.BackButton, .BackButton[type="button"], .BackButton[type="submit"], button.cancel, button.prev {
+    background-color: #BDBEC1;
+    border: 1px solid #BDBEC1;
+}
+.inputcl {
+    #background-color: #77BB44;
+    border-color: #56A02B;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    padding: 4px;
+    height: 25px;
+    #color: white;
+    width:300px;
+}
+.textareacl {
+    #background-color: #77BB44;
+    border-color: #56A02B;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    padding: 4px;
+    height: 45px;
+    #color: white;
+    width:300px;
+}
+.selectcl {
+    #background-color: #77BB44;
+    border-color: #56A02B;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    padding: 4px;
+    height: 45px;
+    #color: white;
+    width:300px;
+}
+.list {
+    background: none repeat scroll 0 0 #E2E3E2;
+    clear: both;
+    margin-top: 10px;
+    padding: 10px;
+}
+.sublist {
+padding-top: 5px;
+position: relative;
+}
+.filter {
+border-bottom: 2px solid #77BB44;
+padding: 0 0 10px;
+border-top: 0 none;
+
+}
+.content-list {
+    padding: 18px 0 0;
+}
+.content-list {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.content-item {
+    border-bottom: medium none;
+    padding: 0;
+}
+.abbreviated-post {
+    padding: 5px;
+}
+.abbreviated-post {
+    min-height: 46px;
+    position: relative;
+}
+.row-main {margin-bottom:10px; clear:both; overflow:hidden}
+.row-main-drop{clear:both;}
+.row-label-main {
+    margin-right: 25px;width:150px;float: left;text-align: right;
+}
+.row-label {
+    margin-top: 5px !important;display:block;text-align:right;color:black;
+}
+.row-box {
+    width: 310px;float:left;
+}
+.cl {
+    height:10px; overflow:hidden; clear:both
+}
+.post-application {
+    font-size: 1.1em;
+    font-weight: normal;
+    text-transform: none;
+}
+.post-name {
+    font-size: 1.35em;
+    font-weight: normal;
+    margin-bottom: 6px;
+    margin-right: 56px;
+    color: #999999;
+}
+.abbreviated-post .post-author, .abbreviated-post .post-date, .abbreviated-post .post-application, .abbreviated-post .post-actions {
+    color: #303030;
+    font-size: 11px;
+}
+.post-author {
+    display: inline;
+    color: #303030;
+    font-size: 11px;
+}
+.post-attributes {
+    color: #333333;
+    display: inline;
+    position: absolute;
+    right: 0;
+    top: 26px;
+}
+.post-summary {
+    margin: 5px 0 0;
+    color: #303030;
+    line-height: 18px;
+}
+.required {
+    color: red;
+    font-size:11px;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+#tblSearchResults {
+    width: 100%;
+    font-family: SegoeRegular,'Segoe UI',Segoe,'Segoe WP',Tahoma,Verdana,Arial,sans-serif;
+    font-size: 12px;
+    color:black;
+}
+#tblSearchResults th {
+    border-bottom: 2px solid #77BB44;
+    height: 40px;
+    padding: 4px;
+    text-align: left;
+}
+#tblSearchResults tr.Alternate {
+    color:black;
+}
+#tblSearchResults tr.Alternate td {
+    border-top: 0 solid blue;
+}
+#tblSearchResults tr.Result td {
+    padding: 4px;
+}
+
+#GlobalSearch {
+    background-color: #E2E2E2;
+    font-size: 11px;
+    height: 27px;
+    margin: 0 auto 20px;
+    width: 920px;
+    padding-bottom: 20px;
+}
+#GlobalSearch .JobSearchText {
+    display: table;
+    float: left;
+    height: 48px;
+    padding: 0 5px;
+    width: 160px;
+}
+
+#GlobalSearch .JobSearchText span {
+    display: table-cell;
+    font-size: 16px;
+    text-align: center;
+    vertical-align: middle;
+}
+.globalSearch_Cell {
+    float: left;
+    margin: 10px 0 0;
+    padding-left: 8px;
+    vertical-align: middle;
+}
+input.SearchButton {
+    background-color: #35B1F7;
+    border: medium none;
+    border-collapse: collapse;
+    border-radius: 1px 1px 1px 1px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    height: 26px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    vertical-align: middle;
+    width: 85px;
+}
+
+.errorM {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('../images/error.png');
+}
+.warningM {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('../images/warning.png');
+}
+.successM {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image:url('../images/success.png');
+}
+.infoM, .successM, .warningM, .errorM, .validationM {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+.err {
+	color: red;
+	font-style: italic;
+}
+/* Data Tables CSS */
+div#table1_filter input {
+    background-color: #77BB44;
+    border-color: #56A02B;
+    border-style: solid;
+    border-width: 1px;
+    color: white;
+    font-size: 12px;
+    width:200px;
+    height: 25px;
+}
+
+div#table1_length select {
+    border-style: solid;
+    background-color: #77BB44;
+    color: white;
+    font-size: 16px;
+    margin-bottom:2px;
+    padding: 3px;
+    width: 55px;
+    height: 28px;
+}
+
+/***********************************************
+    Navigation Bar
+************************************************/
+div#ShellHeaderContent div#ShellNavigationBar
+{
+    font-size: 13px;
+    font-family: 'Segoe UI' , Arial, Sans-Serif;
+    background-color: #77BB44; /*Primary Green*/
+    overflow: auto;
+    zoom: 1; /* IE6 */
+    z-index: 30;
+    text-align: left;
+    background: -webkit-gradient(linear, left top, left bottom, from(#75B943), to(#56A02B)); /* Safari 4+, Chrome */
+    background: -webkit-linear-gradient(top, #75B943, #56A02B); /* Chrome 10+, Safari 5.1+ */
+    background: -moz-linear-gradient(top, #75B943, #56A02B); /* FF3.6+ */
+    background: -ms-linear-gradient(top, #75B943, #56A02B); /* IE10 */
+    background: -o-linear-gradient(top, #75B943, #56A02B); /* Opera */
+    background: linear-gradient(top, #75B943, #56A02B); /* W3C */ 
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#75B943, endColorstr=#56A02B)"; /*IE8-9*/
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr="#75B943", endColorstr="#56A02B", GradientType=0); /* IE6-7 */ 
+    overflow: auto; /* Give "layout" for IE6-7 filters to work */
+}
+
+div#ShellHeaderContent div#ShellNavigationBar > div
+{
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+div#ShellHeaderContent div#ShellNavigationBar a.CalloutNavigation, div#ShellHeaderContent div#ShellNavigationBar a.CalloutNavigation:visited
+{
+    background-color: #532E8E; /*Natal Purple*/
+    display: block;
+    float: right;
+    line-height: 40px;
+    text-align: center;
+    width: 237px;
+    color: #FFFFFF;
+}
+div#ShellHeaderContent div#ShellNavigationBar a.CalloutNavigation:hover
+{
+    color: #BB99CC;
+}
+
+div#ShellHeaderContent div#ShellNavigationBar ul.NavigationElements
+{
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: 40px;
+    overflow: hidden;
+}
+
+div#ShellNavigationBar ul.NavigationElements li
+{
+    float: left;
+    list-style: none;
+    margin-right: 2px;
+}
+
+div#ShellNavigationBar ul.NavigationElements li a
+{
+    display: block;
+    padding: 0px 20px;
+    color: #FFFFFF;
+    white-space: nowrap;
+}
+
+div#ShellNavigationBar ul.NavigationElements li a:hover
+{
+    color: #DAE23F;
+}
+
+div#ShellNavigationBar ul.NavigationElements li:hover ul
+{
+    visibility: visible;
+}
+
+div#ShellNavigationBar ul.NavigationElements li.selected > a
+{
+    background-color: #1F6D34;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2B9646), to(#1F6D34)); /* Safari 4+, Chrome */
+    background: -webkit-linear-gradient(top, #2B9646, #1F6D34); /* Chrome 10+, Safari 5.1+ */
+    background: -moz-linear-gradient(top, #2B9646, #1F6D34); /* FF3.6+ */
+    background: -ms-linear-gradient(top, #2B9646, #1F6D34); /* IE10 */
+    background: -o-linear-gradient(top, #2B9646, #1F6D34); /* Opera */
+    background: linear-gradient(top, #2B9646, #1F6D34); /* W3C */ 
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#2B9646FF, endColorstr=#1F6D34FF)"; /*IE8-9*/
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr="#2B9646", endColorstr="#1F6D34", GradientType=0); /* IE6-7 */ 
+    overflow: auto; /* Give "layout" for IE6-7 filters to work */
+}
+
+div#ShellNavigationBar ul.NavigationElements li ul
+{
+    margin: 0;
+    position: absolute;
+    z-index: 200;
+    visibility: hidden;
+    font-size: 12px;
+    background: url(../images/menu_shadow.png) #2b9646 no-repeat;
+    min-width: 150px;
+    padding: 10px 0;
+}
+
+div#ShellNavigationBar ul.NavigationElements li ul li
+{
+    float: none;
+    display: inline;
+    background-color: transparent;
+    line-height: 0;
+    margin: 0;
+}
+
+div#ShellNavigationBar ul.NavigationElements li ul li a
+{
+    width: auto;
+    background-color: transparent;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    line-height: 26px;
+}
+
+div#ShellNavigationBar ul.NavigationElements li ul li a:hover
+{
+    color: #DAE23F;
+}
+
+div#ShellNavigationBar ul.NavigationElements .Highlighted
+{
+    background-color: #1F6D34;
+    color: #DAE23F;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2B9646), to(#1F6D34)); /* Safari 4+, Chrome */
+    background: -webkit-linear-gradient(top, #2B9646, #1F6D34); /* Chrome 10+, Safari 5.1+ */
+    background: -moz-linear-gradient(top, #2B9646, #1F6D34); /* FF3.6+ */
+    background: -ms-linear-gradient(top, #2B9646, #1F6D34); /* IE10 */
+    background: -o-linear-gradient(top, #2B9646, #1F6D34); /* Opera */
+    background: linear-gradient(top, #2B9646, #1F6D34); /* W3C */ 
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#2B9646FF, endColorstr=#1F6D34FF)"; /*IE8-9*/
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr="#2B9646", endColorstr="#1F6D34", GradientType=0); /* IE6-7 */ 
+    overflow: auto; /* Give "layout" for IE6-7 filters to work */
+}
+
+table.HomePageModular {
+    border-collapse: collapse;
+}
+td.HomePageModularLeftContent {
+    max-width: 715px;
+    min-width: 715px;
+    vertical-align: top;
+    width: 715px;
+}
+div.AnnouncementsModuleLiner {
+    border-color: #BDBEC1 -moz-use-text-color #BDBEC1 #BDBEC1;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+}
+h2.Announcements {
+    margin: 8px 0 0;
+    padding: 0;
+}
+h2 {
+    color: #636468;
+    font-family: "Segoe UI",Arial,Sans-Serif;
+    font-size: 17px;
+}
+div.AnnouncementsLinkList {
+    margin-bottom: 1px;
+    margin-left: 200px;
+    margin-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    width: 505px;
+}
+div.AnnouncementsLink {
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 505px;
+    word-break: normal;
+    word-wrap: normal;
+	font-size: 15px;
+	color:black;
+}
+div.AnnouncementsLink a {
+color:#1F6D34;
+}
+/***************
+ Light Box
+***************/
+.lb_bak { position:absolute;top:0px;left:0px;width:100%;height:100%;background:#000;opacity:.0;filter:alpha(opacity=0);z-index:50;display:none;}
+.lb_box { position:absolute;top:20%;left:30%;width:500px;height:300px;background:#ffffff;z-index:51;padding:10px;border-radius: 5px;box-shadow:0px 0px 5px #444444;display:none; }
+.lb_close { float:right;margin-right:6px;cursor:pointer; }
+/********************
+ Validation Error
+********************/
+label.error { color: red;font-style: italic;}
+div.error { display: none; }
+input.checkbox { border: none }
+input:focus { border: 1px dotted black; }
+input.error { border: 1px dotted red; }
+
+
+
+.txtLabel {
+	margin-top:5px;color:black;
+}
+
+/*
+Suggestor 
+*/
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #77BB44; }
+.autocomplete-suggestions strong { font-weight: normal; color: #FF0000; }
+

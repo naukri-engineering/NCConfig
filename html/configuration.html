@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Configuration</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+			<form method=post id='configurationForm'>
+				<input type=hidden id='configurationId' name='configurationId' value='~$configuration.configurationId`'>
+				<input type=hidden id='applicationId_old' name='applicationId_old' value='~$configuration.applicationId`'>
+				<input type=hidden id='serviceId_old' name='serviceId_old' value='~$configuration.serviceId`'>
+				<input type=hidden id='systemUserId_old' name='systemUSerId_old' value='~$configuration.systemUserId`'>
+				<input type=hidden id='configurationTag_old' name='configurationTag_old' value='~$configuration.configurationTag`'>
+				<div class='SColumn'>
+                    <div class='row-main-drop'>
+                        <div class='row-label-main' style='width:180px;'><label for="applicationId" class='row-label'>Application <span class='required'>*</span></label></div>
+                        <div class='row-box'>
+                            <select id='applicationId' name='applicationId' data-placeholder="Choose Application ..." class="chzn-select selectcl">
+                                <option value=""></option>
+                                ~section name=i loop=$applications`
+                                <option value='~$applications[i].applicationId`' ~if $configuration.applicationId eq $applications[i].applicationId`selected~/if`>~$applications[i].applicationName`</option>
+                                ~/section`
+                            </select>
+							<label class='error' id='error_label' style='display:none'></label>
+                        </div>
+						~if $userROLE|in_array:$privilegeList.application.add`
+						<a href='#' onclick="lightbox_application('');"><img src='~$IMG_PATH`add.gif' width=22 height=22></a>
+						~/if`
+						<div class="cl10"></div>
+                    </div>
+
+                    <div class='row-main-drop'>
+                        <div class='row-label-main' style='width:180px;'><label for="serviceId" class='row-label'>Service <span class='required'>*</span></label></div>
+                        <div class='row-box'>
+                            <select id='serviceId' name='serviceId' data-placeholder="Choose Service ..." class="chzn-select selectcl">
+                                <option value=""></option>
+                                ~section name=i loop=$services`
+                                <option value='~$services[i].serviceId`' ~if $configuration.serviceId eq $services[i].serviceId`selected~/if`>~$services[i].serviceLabel`</option>
+                                ~/section`
+                            </select>
+                            <label class='error' id='error_label' ~if !$errors.serviceId`style='display:none'~/if`>~$errors.serviceId`</label>
+                        </div>
+                        <div class="cl10"></div>
+                    </div>
+
+
+                    <div class='row-main-drop'>
+                        <div class='row-label-main' style='width:180px;'><label for="systemUserId" class='row-label'>System User (<b>Active</b>) <span class='required'>*</span></label></div>
+                        <div class='row-box'>
+                            <select id='systemUserId' name='systemUserId' data-placeholder="Choose System User ..." class="chzn-select selectcl">
+                                <option value=""></option>
+                                ~section name=i loop=$systemUsers`
+                                <option value='~$systemUsers[i].systemUserId`' ~if $configuration.systemUserId eq $systemUsers[i].systemUserId`selected~/if`>~$systemUsers[i].systemUserRefName` ( ~$systemUsers[i].username` )</option>
+                                ~/section`
+                            </select>
+                            <label class='error' id='error_label' style='display:none'></label>
+                        </div>
+						~if $userROLE|in_array:$privilegeList.systemUser.add`
+						<a href='#' onclick="lightbox_systemUser('');"><img src='~$IMG_PATH`add.gif' width=22 height=22></a>
+						~/if`
+                        <div class="cl10"></div>
+                    </div>
+
+
+                    <div class='row-main-drop'>
+                        <div class='row-label-main' style='width:180px;'><label for="systemUserId2" class='row-label'>System User (<b>Inactive</b>) <span class='required'>*</span></label></div>
+                        <div class='row-box'>
+                            <select id='systemUserId2' name='systemUserId2' data-placeholder="Choose System User ..." class="chzn-select selectcl">
+                                <option value=""></option>
+                                ~section name=i loop=$systemUsers`
+                                <option value='~$systemUsers[i].systemUserId`' ~if $configuration.systemUserId eq $systemUsers[i].systemUserId`selected~/if`>~$systemUsers[i].systemUserRefName` ( ~$systemUsers[i].username` )</option>
+                                ~/section`
+                            </select>
+                            <label class='error' id='error_label' style='display:none'></label>
+                        </div>
+                        ~if $userROLE|in_array:$privilegeList.systemUser.add`
+                        <a href='#' onclick="lightbox_systemUser('');"><img src='~$IMG_PATH`add.gif' width=22 height=22></a>
+                        ~/if`
+                        <div class="cl10"></div>
+                    </div>
+
+
+
+                    <div class='row-main'>
+                        <div class='row-label-main' style='width:180px;'><label for="configurationTag" class='row-label'>Tag <span class='required'>*</span></label></div>
+                        <div class='row-box'><input type="text" maxlength="50" id="configurationTag" name="configurationTag" value='~$configuration.configurationTag`' class='inputcl'><label class='error' ~if !$errors.configurationTag`style='display:none'~/if` id='error_label'></label>~$errors.configurationTag`</div>
+                    </div>
+					<div style='float:right;margin-bottom:5px;'><span class='required'>*</span> Required fields&nbsp;&nbsp;&nbsp;</div>
+					<div class="cl10"></div>
+				</div>
+				<div class="NavigationButtons">
+					<button class="NextButton" id="NextButton" name='submit' value='submit'>Save</button>
+				</div>
+			</form>
+		</div>
+    </div>
+	<!-- Lightbox - Application | START -->
+	~include file=_application.html`
+	<!-- Lightbox - Application | END -->
+
+    <!-- Lightbox - System User | START -->
+	~include file=_systemUser.html`
+    <!-- Lightbox - System User | END -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+	<script>drop_down();</script>
+</body>
+</html>

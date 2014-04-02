@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>View Server</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+			<div class='SColumn'>
+				<div class='row-main'>
+					<div class='row-label-main'><label for="serverName" class='row-label'>Application Name </label></div>
+					<div class='row-box txtLabel'>~$application.applicationName`</div>
+				</div>
+				<div class='row-main'>
+					<div class='row-label-main'><label for="serverName" class='row-label'>Server(s) </label></div>
+					<div class='row-box txtLabel' style='width:500px;'>
+						~section name=i loop=$appServers`
+							~$appServers[i].serverLabel`<br/>
+						~/section`
+					</div>
+				</div>
+				<div class='row-main'>
+					<div class='row-label-main'><label for="serverName" class='row-label'>Configuration Path </label></div>
+					<div class='row-box txtLabel'>~$configPath.configPath`</div>
+				</div>
+			</div>
+			~if $userROLE|in_array:$privilegeList.configureApplication.edit`
+			<div class="NavigationButtons">
+				<a href='~$DOMAIN`configureApplication/edit?applicationId=~$application.applicationId`'><button class="NextButton" id="NextButton" name='submit' value='submit'>Edit</button></a>
+			</div>
+			~/if`
+	
+			~if $userROLE|in_array:$privilegeList.configureApplication.addConfigFile`
+			<center>
+			<img src='~$IMG_PATH`addConfig.jpg' style='margin-bottom:-25px;'> <a style='color:#0080FF;' href='#' onClick="lightbox_configFile();"><strong>Upload Config File</strong></a>	
+			<div class="cl10"></div>
+			</center>
+			~/if`
+			~if $configFiles`
+			<div class="cl10"></div>
+			<div class="cl10"></div>
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id='table1' style='font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;border:1px solid #6E6E6E'>
+                <thead style='background-color:#A4A4A4;color:white;text-align:left;'>
+                    <tr>
+                        <th>Configuration File</th>
+						<th>Download</th>
+						~if $userROLE|in_array:$privilegeList.configureApplication.deleteConfigFile`
+                        <th>Delete</th>
+						~/if`
+                    </tr>
+                </thead>
+                <tbody>
+				~section name=i loop=$configFiles`
+                <tr>
+                    <td>~$configFiles[i].configFile`</td>
+					<td><a href='~$DOMAIN`configureApplication/downloadConfigFile?applicationId=~$application.applicationId`&configFile=~$configFiles[i].configFile`'><img src='~$IMG_PATH`download-icon_small.png' /></td></a>
+					~if $userROLE|in_array:$privilegeList.configureApplication.deleteConfigFile`
+                    <td><a href='#' onClick="lightbox_delete('~$DOMAIN`configureApplication/deleteConfigFile?applicationId=~$application.applicationId`&configFile=~$configFiles[i].configFile`')"><img src='../images/delete.png' /></a></td>
+					~/if`
+                </tr>
+				~/section`
+                </tbody>
+            </table>
+
+		    <script id='data1script'>
+				$(document).ready(function() {
+		        $('#table1').dataTable( {"aaSorting": [[ 0, "asc" ]],"sPaginationType": "full_numbers"});
+				} );
+		    </script>
+			~/if`
+			<div class="cl10"></div>
+		</div>
+    </div>
+
+	<!-- Lightbox | Delete | Start -->
+	~include file=_delete.html`
+	<!-- Lightbox | Delete | End   -->
+	
+	<!-- Lightbox | Upload Config | Start -->
+	<div class="lb_bak" id='lb_bak_configFile'></div>
+    <div class="lb_box" style='height:150px;' id='lb_box_configFile'><b>Add Config Template</b><div class="lb_close" id='lb_close_configFile'>X</div>
+        <div class="cl10"></div>
+		<form method=post id='configFileForm' enctype="multipart/form-data" action='~$DOMAIN`configureApplication/addConfigFile'>
+		<input type='hidden' name='applicationId' id='applicationId' value='~$application.applicationId`' />
+        <div class='SColumn'>
+                <div class='row-main'>
+                    <div class='row-label-main'><label for="configFile" class='row-label'>Config Template <span class='required'>*</span></label></div>
+                    <div class='row-box'><input type="file" maxlength="100" id="configFile" name="configFile" class='inputcl'><label class='error' style='display:none'></label></div>
+                </div>
+        </div>
+        <div class="NavigationButtons">
+			<a href='#' id='url_delete'><button class="NextButton" id="NextButton" name='submit' value='submit' id='serviceSubmit'>Save</button></a>
+        </div>
+		</form>
+    </div>
+	<!-- Lightbox | Upload Config | End -->
+
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+</body>
+</html>

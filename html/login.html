@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Login</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			~include file=_message.html`
+			<h1>Login</h1>
+			<form method=post id='loginForm' action='~$DOMAIN`login/'>
+				<div class='SColumn'>
+					<div class='row-main'>
+						<div class='row-label-main' style='width:300px;'><label for="email" class='row-label'>Email <span class='required'>*</span></label></div>
+						<div class='row-box'><input type="text" maxlength="50" id="email" name="email" class='inputcl'><label class='error' style='display:none'></label></div>
+					</div>
+                    <div class='row-main'>
+                        <div class='row-label-main' style='width:300px;'><label for="password" class='row-label'>Password <span class='required'>*</span></label></div>
+                        <div class='row-box'><input type="password" maxlength="15" id="password" name="password" class='inputcl'><label class='error' style='display:none'></label></div>
+                    </div>
+					<!--
+					<div class='row-main'>
+						<div class='row-label-main' style='width:300px;'>&nbsp;</div>			
+						<div class='row-box'><a href='#' style='color:#777777;'>Forgot Password?</a></div>
+					</div>-->
+					<div class="cl10"></div>
+				</div>
+				<div class="NavigationButtons">
+					<button class="NextButton" id="NextButton" name='submit' value='submit'>Login</button>
+				</div>
+			</form>
+		</div>
+    </div>
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+</body>
+</html>

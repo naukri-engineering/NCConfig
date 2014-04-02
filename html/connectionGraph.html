@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Server Cluster</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			~include file=_message.html`
+			<form method=post id='graphForm'>
+				<div class='SColumn'>
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="applicationId" class='row-label'>Choose Filters</label></div>
+                        <div class='row-box'>
+                            <select id='applicationId' name='applicationId' data-placeholder="Choose Application ..." class="chzn-select selectcl">
+                                <option value=""></option>
+                                ~section name=i loop=$applications`
+                                <option value='~$applications[i].applicationId`' ~if $applications[i].applicationId eq $applicationId`selected~/if`>~$applications[i].applicationName`</option>
+                                ~/section`
+                            </select>
+                            <label class='error' style='display:none'></label>
+                        </div>
+                        <div class='row-box'>
+                            <select id='serviceTypeId' name='serviceTypeId' data-placeholder="Choose Service Type ..." class="chzn-select selectcl">
+                                <option value=""></option>
+                                ~section name=i loop=$serviceTypes`
+                                <option value='~$serviceTypes[i].serviceTypeId`' ~if $serviceTypes[i].serviceTypeId eq $serviceTypeId`selected~/if`>~$serviceTypes[i].serviceTypeName`</option>
+                                ~/section`
+                            </select>
+                            <label class='error' style='display:none'></label>
+                        </div>
+						<button class="NextButton" id="NextButton" name='submit' value='submit'>Submit</button>
+                        <div class="cl10"></div>
+                    </div>
+				</div>
+			</form>
+			<div class='SColumn'>
+				<canvas id="springydemo" width="900" height="2000" />
+			</div>
+		</div>
+    </div>
+    <script>
+    var graph = new Graph();
+    ~section name=i loop=$apps`
+		var a~$apps[i].applicationId` = graph.newNode({label: '~$apps[i].applicationName`'});
+    ~/section`
+    ~section name=i loop=$servers`
+		var s~$servers[i].serverId` = graph.newNode({label: '~$servers[i].serverName`'});
+    ~/section`
+    ~section name=i loop=$connectionInfo`
+    graph.newEdge(a~$connectionInfo[i].applicationId`, s~$connectionInfo[i].serverId`, {color: '~$connectionInfo[i].color`'});
+    ~/section`
+    jQuery(function(){
+            var springy = jQuery('#springydemo').springy({graph: graph});
+    });
+	</script>
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+	<script>drop_down();</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Add Server</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+			<form method=post id='serverForm'>
+				<input type=hidden name='serverId' id='serverId' value='~$serverId`'>
+				<input type=hidden name='serverName_old' id='serverName_old' value='~$server.serverName`'>
+				<input type=hidden name='serverIP_old' id='serverIP_old' value='~$server.serverIP`'>
+				<input type=hidden name='serverRefName_old' id='serverRefName_old' value='~$server.serverRefName`'>
+				<div class='SColumn'>
+					<div class='row-main'>
+						<div class='row-label-main'><label for="serverName" class='row-label'>Server Name <span class='required'>*</span></label></div>
+						<div class='row-box'><input type="text" maxlength="50" id="serverName" name="serverName" value='~$server.serverName`' class='inputcl'><label class='error' ~if !$errors.serverName`style='display:none'~/if`>~$errors.serverName`</label></div>
+					</div>
+
+                    <div class='row-main'>
+                        <div class='row-label-main'><label for="serverIP" class='row-label'>Server IP <span class='required'>*</span></label></div>
+                        <div class='row-box'><input type="text" maxlength="15" id="serverIP" name="serverIP" value='~$server.serverIP`' class='inputcl'><label class='error' ~if !$errors.serverIP`style='display:none'~/if`>~$errors.serverIP`</label></div>
+                    </div>
+
+                    <div class='row-main'>
+                        <div class='row-label-main'><label for="serverRefName" class='row-label'>Reference Name <span class='required'>*</span></label></div>
+                        <div class='row-box'><input type="text" maxlength="50" id="serverRefName" name="serverRefName" value='~$server.serverRefName`' class='inputcl'><label class='error' ~if !$errors.serverRefName`style='display:none'~/if`>~$errors.serverRefName`</label></div>
+                    </div>
+
+					<div style='float:right;margin-bottom:5px;'><span class='required'>*</span> Required fields&nbsp;&nbsp;&nbsp;</div>
+					<div class="cl10"></div>
+				</div>
+				<div class="NavigationButtons">
+					<button class="NextButton" id="NextButton" name='submit' value='submit'>Save</button>
+				</div>
+			</form>
+		</div>
+    </div>
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+</body>
+</html>

@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Manage Crons</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+            <form method=post id='deployCronFrom'>
+                <div class='SColumn'>
+                   <div class='row-main-drop'>
+                        <div class='row-label-main' style='width:180px;'><label for="serverId" class='row-label'>Server(s) <span class='required'>*</span></label></div>
+                        <div class='row-box'>
+                            <select id='serverId' name='serverId' data-placeholder="Choose Server(s) ..." class="chzn-select selectcl">
+                                <option value=""></option>
+                                ~section name=i loop=$servers`
+                                <option value='~$servers[i].serverId`' ~if $serverId eq $servers[i].serverId`selected~/if`>~$servers[i].serverRefName` [ ~$servers[i].serverName` ]</option>
+                                ~/section`
+                            </select>
+                            <label class='error' style='display:none'></label>
+                        </div>
+                        <div class="cl10"></div>
+						<!--
+						<div class='row-main-drop'>
+							<div class='row-label-main' style='width:180px;'><label for="user" class='row-label'>Cron User </label></div>
+							<div class='row-box'><input type="text" maxlength="50" id="user" name="user" value='~$user`' class='inputcl'><br/>
+						</div>
+                        <div class="cl10"></div>-->
+						<div class='row-main-drop'>
+							<div class='row-label-main' style='width:180px;'><label for="user" class='row-label'>Cron User <span class='required'>*</span></label></div>
+							<div class='row-box'>
+								<select id='user' name='user' data-placeholder="Choose cron user ..." class="chzn-select selectcl">
+									<option value=""></option>
+									~section name=i loop=$cronUsers`
+									<option value='~$cronUsers[i].cronUser`' ~if $user eq $cronUsers[i].cronUser`selected~/if`>~$cronUsers[i].cronUser`</option>
+									~/section`
+								</select>
+								<label class='error' style='display:none'></label>
+							</div>
+							<div class="cl10"></div>
+						</div>
+
+                    </div>
+                </div>
+                <div class="NavigationButtons">
+                    <button class="NextButton" id="NextButton" name='submit' value='submit'>Submit</button>
+                </div>
+            </form>
+   
+			~if $cronFileContent`
+			<!--<button class="NextButton" id="selectAll" name='SelectAll' value='Select All' style='float:right;'>Copy to Clipboard</button>-->
+			<form method=post id='svnCronFrom'> 
+			<input type=hidden name=serverId value='~$serverId`'>
+			<input type=hidden name=user value='~$user`'>
+			<button class="NextButton" id="svnSubmit" name='svnSubmit' value='Save to SVN'>&nbsp;&nbsp;&nbsp;Save to SVN&nbsp;&nbsp;&nbsp;</button>
+			</form>
+			<div class='SColumn' style='padding:10px;'>
+				<div id='serverCron'>
+				~$cronFileContent`
+				</div>
+			</div>
+			~/if`
+
+			~if $cronFileContentOutput`
+			<span style='font-size: 16px;color:#77BB44;'>Actual content written to File</span>
+			<div class='SColumn' style='padding:10px;'>
+				<div id='cronFileContentOutput'>
+				~$cronFileContentOutput`
+				</div>
+			</div>
+			~/if`
+
+			~if $svnContentOutput`
+			<span style='font-size: 16px;color:#77BB44;'>SVN Add/Commit Output</span>
+			<div class='SColumn' style='padding:10px;'>
+				<div id='svnContentOutput'>
+				<pre>~$svnContentOutput`</pre>
+				</div>
+			</div>
+			~/if`
+
+    </div>
+	<script>drop_down();</script>
+
+	<script>
+    $(document).ready(function(){
+		$('#selectAll').zclip({
+	    path:'~$JS_PATH`ZeroClipboard.swf',
+		copy:$('#serverCron').text(),
+		});
+    });
+	</script>
+
+	<!-- Lightbox | Delete | Start -->
+	~include file=_delete.html`
+	<!-- Lightbox | Delete | End   -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+    <div class="lb_bak" id='lb_bak_application'></div>
+    <div class="lb_box" style='height:260px;' id='lb_box_application'><b>Add/Edit Application</b><div class="lb_close" id='lb_close_application'>X</div>
+        <div class="cl10"></div>
+        <form method=post id='applicationForm'>
+		<input type=hidden name='MODULE' id='MODULE' value='~$MODULE`'>
+		<input type=hidden name='applicationId' id='applicationId' value=''>
+		<input type=hidden name='applicationName_old' id='applicationName_old' value=''>
+		<input type=hidden name='email_old' id='email_old' value=''>
+        <div class='SColumn'>
+            <div class='row-main'>
+                <div class='row-label-main'><label for="applicationGroupName" class='row-label'>Group Name <span class='required'>*</span></label></div>
+                <div class='row-box'><input type="text" maxlength="50" id="applicationGroupName" name="applicationGroupName" class='inputcl'><label class='error' style='display:none' id='applicationGroupNameErr'></label></div>
+            </div>
+
+            <div class='row-main'>
+                <div class='row-label-main'><label for="applicationName" class='row-label'>Application Name <span class='required'>*</span></label></div>
+                <div class='row-box'><input type="text" maxlength="50" id="applicationName" name="applicationName" class='inputcl'><label class='error' style='display:none' id='applicationNameErr'></label></div>
+            </div>
+
+            <div class='row-main'>
+                <div class='row-label-main'><label for="email" class='row-label'>Email <span class='required'>*</span></label></div>
+                <div class='row-box'><input type="text" maxlength="50" id="email" name="email" class='inputcl'><label class='error' style='display:none' id='emailErr'></label></div>
+            </div>
+        </div>
+        <div class="NavigationButtons">
+            <button class="NextButton" id="NextButton" name='submit' value='submit' id='serviceSubmit'>Save</button>
+        </div>
+        </form>
+        <center><img id='loading_application' src='~$IMG_PATH`loading.gif' style='display:none;'/></center>
+    </div>
+	<script>
+	~if $sugg_applicationGroupNames`
+	autoSuggestor(~$sugg_applicationGroupNames`,'applicationGroupName');
+	~/if`
+	~if $sugg_Emails`
+	autoSuggestor(~$sugg_Emails`,'email');
+	~/if`
+	</script>

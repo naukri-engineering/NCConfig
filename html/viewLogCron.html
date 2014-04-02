@@ -1,0 +1,176 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Manage Crons</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+            <div class='SColumn'>
+                <div class='row-main'>
+                    <div class='row-label-main'><label class='row-label'>Application </label></div>
+                    <div class='row-box txtLabel' style='width:700px;'>: ~$cron.applicationName`</div>
+                </div>
+                <div class='row-main'>
+                    <div class='row-label-main'><label class='row-label'>Server </label></div>
+                    <div class='row-box txtLabel' style='width:700px;'>: ~$cron.serverName`</div>
+                </div>
+                <div class='row-main'>
+                    <div class='row-label-main'><label class='row-label'>Cron Command </label></div>
+                    <div class='row-box txtLabel' style='width:700px;'>: ~$cron.command`</div>
+                </div>
+            </div>
+
+
+			~if $log`
+            <form method=post id='viewLogCronFrom'>
+				<input type=hidden name=cronId value='~$cronId`'>
+                <div class='SColumn'>
+
+                   <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="cronStatus" class='row-label'>Cron Status</label></div>
+                        <div class='row-box'>
+                            <select id='cronStatus' name='cronStatus' data-placeholder="Choose Cron Status(s) ..." class="chzn-select selectcl" style='width:250px;'>
+                                <option value=""></option>
+                                <option value='SUCCESS' ~if $cronStatus eq 'SUCCESS'`selected~/if`>SUCCESS</option>
+                                <option value='ERROR' ~if $cronStatus eq 'ERROR'`selected~/if`>ERROR</option>
+                                <option value='PENDING' ~if $cronStatus eq 'PENDING'`selected~/if`>PENDING</option>
+                            </select>
+                        </div>
+                        <div class="cl10"></div>
+                    </div>
+
+
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="startDate" class='row-label'>Date </label></div>
+                        <div class='row-box'>
+							<input type="text" id="startDate" name="startDate" value='~$startDate`' class='inputcl' style='width:110px;'>  
+							&nbsp; - &nbsp; <input type="text" id="endDate" name="endDate" value='~$endDate`' class='inputcl' style='width:110px;'>
+                        </div>
+                    </div>
+                    <div class="cl10"></div>
+                </div>
+                <div class="NavigationButtons">
+                    <button class="NextButton" id="NextButton" name='submit' value='submit'>Submit</button>
+                </div>
+            </form>
+            <script>drop_down();</script>
+			<script>
+			window.onload = function(){
+			new JsDatePick({
+            useMode:2,
+            target:"startDate",
+            limitToToday:true,
+            cellColorScheme:"armygreen",
+            dateFormat:"%Y-%m-%d",
+            imgPath:"~$IMG_PATH`",
+            weekStartDay:1
+			});
+            new JsDatePick({
+            useMode:2,
+            target:"endDate",
+            limitToToday:true,
+            cellColorScheme:"armygreen",
+            dateFormat:"%Y-%m-%d",
+            imgPath:"~$IMG_PATH`",
+            weekStartDay:1
+            });
+
+			}
+			</script>
+
+			<table cellpadding="0" cellspacing="0" border="0" class="display" id='table1' style='font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;border:1px solid #6E6E6E'>
+			<thead style='background-color:#A4A4A4;color:white;'>
+			<tr align=left>
+            <th>&nbsp;</th>
+			<th>Status</th>
+			<th>Start Time</th>
+			<th>End Time</th>
+			<th>Time Taken</th>
+			</tr>
+			</thead>
+			</table>
+			~/if`
+
+		</div>
+    </div>
+	<!-- Lightbox | Delete | Start -->
+	~include file=_delete.html`
+	<!-- Lightbox | Delete | End   -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+
+	<!-- Table data | Start -->
+	<!--~include file=_tabledata.html``-->
+	<!-- Table data | End -->
+
+	<script>
+	var anOpen = [];
+    var sImageUrl = "../images/";
+    var oTable = $('#table1').dataTable( {
+		"aaSorting": [[ 0, "asc" ]],
+		"sDom": 'T<"clear">lfrtip',
+		"oTableTools": { "sSwfPath": "../images/copy_csv_xls_pdf.swf" },
+		"aoColumns": [
+            {
+               "mDataProp": null,
+               "sClass": "control center",
+               "sDefaultContent": '<img src="'+sImageUrl+'details_open.png'+'">'
+            },
+			{ "mDataProp": "cronStatus" },
+			{ "mDataProp": "startTime" },
+			{ "mDataProp": "endTime" },
+			{ "mDataProp": "timeTaken" },
+        ],
+		"aaData": [
+		~section name=i loop=$log`
+		{
+			"statusId": "~$log[i].statusId`",
+			"cronId": "~$log[i].cronId`",
+			"cronStatus": "~$log[i].cronStatus`",
+			"startTime": "~$log[i].startTime`",
+			"endTime": "~$log[i].endTime`",
+			"timeTaken": "~$log[i].timeTaken`",
+			"cronOutput": ~$log[i].cronOutput`,
+		},
+		~/section`
+		]
+    } );
+	$('#table1 td.control').live( 'click', function () {
+	var nTr = this.parentNode;
+	var i = $.inArray( nTr, anOpen );
+	if ( i === -1 ) {
+      $('img', this).attr( 'src', sImageUrl+"details_close.png" );
+      oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+      anOpen.push( nTr );
+    }
+    else {
+      $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+      oTable.fnClose( nTr );
+      anOpen.splice( i, 1 );
+    }
+	} );
+
+	function fnFormatDetails( oTable, nTr )
+	{
+	var oData = oTable.fnGetData( nTr );
+	var sOut =
+    '<div style="font-size:12px;">'+
+      '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;font-size:12px;" >'+
+        '<tr><td>Cron Output:</td><td>'+oData.cronOutput+'</td></tr>'+
+      '</table>'+
+    '</div>';
+	return sOut;
+	}
+	</script>
+</body>
+</html>

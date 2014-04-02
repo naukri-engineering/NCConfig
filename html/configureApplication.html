@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Configure Application</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+			<form method=post id='configureApplicationForm' enctype="multipart/form-data">
+				<div class='SColumn'>
+					~if !$applicationId`
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="applicationId" class='row-label'>Application <span class='required'>*</span></label></div>
+                        <div class='row-box'>
+                            <select id='applicationId' name='applicationId' data-placeholder="Choose Application ..." class="chzn-select selectcl">
+                                <option value=""></option>
+                                ~section name=i loop=$applications`
+                                <option value='~$applications[i].applicationId`' ~if $applications[i].applicationId eq $applicationId`selected~/if`>~$applications[i].applicationName`</option>
+                                ~/section`
+                            </select>
+							<label class='error' style='display:none'></label>
+                        </div>
+						~if $userROLE|in_array:$privilegeList.application.add`
+						<a href='#' onclick="lightbox_application('');"><img src='~$IMG_PATH`add.gif' width=22 height=22></a>
+						~/if`
+						<div class="cl10"></div>
+                    </div>
+					~else`
+					<div class='row-main'>
+						<div class='row-label-main'><label for="applicationName" class='row-label'>Application Name </label></div>
+						<div class='row-box txtLabel'>~$application.applicationName`</div>
+					</div>
+
+					~/if`
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="serverId" class='row-label'>Server(s) <span class='required'>*</span></label></div>
+                        <div class='row-box'>
+                            <select id='serverId' name='serverId[]' data-placeholder="Choose Server(s) ..." class="chzn-select selectcl" multiple>
+                                <option value=""></option>
+                                ~section name=i loop=$servers`
+                                <option value='~$servers[i].serverId`' ~if $servers[i].serverId|in_array:$serverIds`selected~/if`>~$servers[i].serverRefName` [ ~$servers[i].serverName` ]</option>
+                                ~/section`
+                            </select>
+                            <label class='error' style='display:none'></label>
+                        </div>
+                        <div class="cl10"></div>
+                    </div>
+
+                    <div class='row-main'>
+                        <div class='row-label-main'><label for="configPath" class='row-label'>Configuration Path <span class='required'>*</span></label></div>
+                        <div class='row-box'><input type="text" maxlength="100" id="configPath" name="configPath" value="~if $DEFAULT_CONFIG_PATH`~$DEFAULT_CONFIG_PATH`~else`~$configPath.configPath`~/if`" class='inputcl'><label class='error' style='display:none'></label></div>
+                    </div>
+
+					~if !$applicationId`
+					<!--
+                    <div class='row-main'>
+                        <div class='row-label-main'><label for="configFile" class='row-label'>Config Template <span class='required'>*</span></label></div>
+                        <div class='row-box'><input type="file" maxlength="100" id="configFile" name="configFile" class='inputcl'><label class='error' style='display:none'></label></div>
+                    </div>
+					-->
+					~/if`
+					<div style='float:right;margin-bottom:5px;'><span class='required'>*</span> Required fields&nbsp;&nbsp;&nbsp;</div>
+					<div class="cl10"></div>
+				</div>
+				<div class="NavigationButtons">
+					<button class="NextButton" id="NextButton" name='submit' value='submit'>Save</button>
+				</div>
+			</form>
+		</div>
+    </div>
+
+	<!-- Lightbox - Application | START -->
+	~include file=_application.html`
+	<!-- Lightbox - Application | END -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+	<script>drop_down();</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+    <div class="lb_bak" id='lb_bak_user'></div>
+    <div class="lb_box" style='height:190px;' id='lb_box_user'><b>Add User</b><div class="lb_close" id='lb_close_user'>X</div>
+        <div class="cl10"></div>
+        <form method=post id='userForm'>
+        <div class='SColumn'>
+            <div class='row-main'>
+                <div class='row-label-main'><label for="email" class='row-label'>Email <span class='required'>*</span></label></div>
+                <div class='row-box'>
+					<input type="text" maxlength="50" id="email" name="email" class='inputcl'>
+					<label class='error' style='display:none' id='emailErr'></label>
+				</div>
+            </div>
+            <div class='row-main-drop'>
+                <div class='row-label-main'><label for="role" class='row-label'>Role <span class='required'>*</span></label></div>
+                <div class='row-box'>
+                    <select id='role' name='role' class="selectcl" style='height:25px;'>
+                        <option value='READ_ONLY'>READ_ONLY</option>
+                        <option value='ADMIN'>ADMIN</option>
+                        <option value='APP_MANAGER'>APP_MANAGER</option>
+                        <option value='OPERATIONS'>OPERATIONS</option>
+					</select>
+                    <label class='error' id='error_label' style='display:none'></label>
+                </div>
+                <div class="cl10"></div>
+            </div>
+        </div>
+        <div class="NavigationButtons">
+            <button class="NextButton" id="NextButton" name='submit' value='submit' id='Submit'>Save</button>
+        </div>
+        </form>
+    </div>
+
+	<!-- Role | Start -->
+    <div class="lb_bak" id='lb_bak_userRole'></div>
+    <div class="lb_box" style='height:150px;' id='lb_box_userRole'><b>Change User Role</b><div class="lb_close" id='lb_close_userRole'>X</div>
+        <div class="cl10"></div>
+        <form method=post id='userRoleForm'>
+		<input type=hidden name='userId' id='userId' value=''>
+        <div class='SColumn'>
+            <div class='row-main-drop'>
+                <div class='row-label-main'><label for="role" class='row-label'>Role <span class='required'>*</span></label></div>
+                <div class='row-box'>
+                    <select id='role' name='role' class="selectcl" style='height:25px;'>
+                        <option value='READ_ONLY'>READ_ONLY</option>
+                        <option value='ADMIN'>ADMIN</option>
+                        <option value='APP_MANAGER'>APP_MANAGER</option>
+                        <option value='OPERATIONS'>OPERATIONS</option>
+                    </select>
+                    <label class='error' id='error_label' style='display:none'></label>
+                </div>
+                <div class="cl10"></div>
+            </div>
+        </div>
+        <div class="NavigationButtons">
+            <button class="NextButton" id="NextButton" name='submit' value='submit' id='Submit'>Save</button>
+        </div>
+        </form>
+    </div>
+	<!-- Role | End -->
+

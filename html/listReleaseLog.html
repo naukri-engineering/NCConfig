@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Manage Releases</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+			~if $applicationId`
+			<div style='float:right;'><a href='~$DOMAIN`release/list?release=~$release`'><img src='~$IMG_PATH`back.png' /></a></div>
+			~elseif $release`
+			<div style='float:right;'><a href='~$DOMAIN`release/list'><img src='~$IMG_PATH`back.png' /></a></div>
+			~/if`
+			~if $userROLE|in_array:$privilegeList.release.changeConfigFile`
+			~if !$release && !$applicationId`
+            <form method=post id='releaseCommentForm' action='~$DOMAIN`release/changeConfigFile'>
+                <div class='SColumn'>
+                    <div class='row-main'>
+                       <div class='row-label-main'><label for="releaseComment" class='row-label'>Comment <span class='required'>*</span></label></div>
+                       <div class='row-box'><input type="text" maxlength="100" id="releaseComment" name="releaseComment" class='inputcl'></div>
+					   <button class="NextButton" id="NextButton" name='submit' value='submit'>Create Release</button>
+                    </div>
+				</div>
+			</form>
+			~/if`
+			~/if`
+			~if $releases`
+			<table cellpadding="0" cellspacing="0" border="0" class="display" id='table1' style='font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;border:1px solid #6E6E6E'>
+				<thead style='background-color:#A4A4A4;color:white;text-align:left;'>
+					<tr>
+						~if $applicationId`
+							<th>Application Id</th>
+							<th>Config File</th>
+							<th>Download</th>
+						~elseif $release`
+							<th>Release</th>
+							<th>Group</th>
+							<th>Application Id</th>
+							<th>Last Deploy Time</th>
+							<th>Last Deploy Status</th>
+							~if $userROLE|in_array:$privilegeList.release.deploy`
+							<th>Deploy</th>
+							~/if`
+						~else`
+							<th>Date</th>
+							<th>Release</th>
+							<th>Comment</th>
+						~/if`
+					</tr>
+				</thead>
+				<tbody>
+				~section name=i loop=$releases`
+				<tr>
+					~if $applicationId`
+						<td>~$releases[i].applicationName` (~$releases[i].applicationId`)</td>
+						<td>~$releases[i].configFile`</td>
+						<td><a href='~$DOMAIN`release/downloadConfigFile?applicationId=~$releases[i].applicationId`&release=~$release`&configFile=~$releases[i].configFile`'><img src='~$IMG_PATH`download-icon_small.png'/></a></td>
+					~elseif $release`
+						<td>~$releases[i].release`</td>
+						<td>~$releases[i].applicationGroupName`</td>
+						<td><a href='~$DOMAIN`release/list?release=~$releases[i].release`&applicationId=~$releases[i].applicationId`'>~$releases[i].applicationName`</a> (~$releases[i].applicationId`)</td>
+						<td>~$releases[i].time_stamp`</td>
+						<td>~$releases[i].status`</td>
+						~if $userROLE|in_array:$privilegeList.release.deploy`
+						<td><a href='~$DOMAIN`release/deploy?applicationId=~$releases[i].applicationId`&release=~$release`'><img src='~$IMG_PATH`deploy.gif' height=22 width=22 /></a></td>
+						~/if`
+					~else`
+						<td>~$releases[i].date`</td>
+						<td><a href='~$DOMAIN`release/list?release=~$releases[i].release`'>~$releases[i].release`</a></td>
+						<td>~$releases[i].comment`</td>
+					~/if`
+				</tr>
+				~/section`
+				</tbody>
+			</table>
+			<br/><br/>
+			~/if`
+		</div>
+    </div>
+
+    <!-- Delete | Start -->
+    ~include file=_delete.html`
+    <!-- Delete | End -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+
+    <!-- Table data | Start -->
+    <!--~include file=_tabledata.html`-->
+    <script id='data1script'>
+        $(document).ready(function() {
+        $('#table1').dataTable( {"aaSorting": [[ 1, "desc" ]],"sPaginationType": "full_numbers"});
+        } );
+    </script>
+
+    <!-- Table data | End -->
+
+</body>
+</html>

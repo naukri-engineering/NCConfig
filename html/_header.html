@@ -1,0 +1,71 @@
+        <div id="BodyHeader" class="container">
+            <div id="ShellHeaderContent">
+                <span id="XbcPointsBalanceShell"></span>
+                <div id="ShellMeBarArea">
+                    <a href=""><div id="ShellLogo"></div></a>
+                    <div id="SignedOutExperience">
+                        <!--<div id="HeadShotBox" class="SignedOut"></div>-->
+						~if $userAUTH eq '1'`
+                        <div id="ShellMeBar" class="SignedOut">
+                            <div class="LinkArea" style='color:black;'>
+								You are logged in as <strong>~$userEMAIL`</strong> [ <a href="~$DOMAIN`login/logout">Logout</a> ]
+                                <div style='margin-top:8px;'><a href="~$DOMAIN`user/changePassword">Change Password</a></div>
+                            </div>
+                        </div>
+						~/if`
+                    </div>
+                </div>
+                <div id="ShellNavigationBar">
+                    <div>
+						<!--
+                        <div class="SearchArea">
+                            <input class="TextBox WatermarkColor ui-autocomplete-input" value="Search All" type="text">
+                            <input id="SearchButton" class="SubmitButton" value="" title="Search All" type="button">
+                        </div>-->
+                        <ul class="NavigationElements">
+                            <li style="margin-right:3.5px;">
+                                <a href="#" ~if $MAIN_TAB eq 'configure'`class="Highlighted"~/if`>Configure</a>
+								<ul>
+									<li><a href='~$DOMAIN`server/list'>Servers</a>
+									<!--<li><a href='~$DOMAIN`configuration/list'>Configuration</a>
+									<li><a href='~$DOMAIN`configureApplication/add'>Application</a>-->
+								</ul>
+							</li>
+                            <li style="margin-right:3.5px;">
+                                <a href="#" ~if $MAIN_TAB eq 'manage'`class="Highlighted"~/if`>Manage</a>
+								<ul>
+									<li><a href='~$DOMAIN`application/list'>Application</a>
+									<li><a href='~$DOMAIN`user/list'>User</a>
+									<!--<li><a href='~$DOMAIN`systemUser/list'>System User</a>-->
+								</ul>
+							</li>
+							<!--
+                            <li style="margin-right:3.5px;">
+                                <a href="~$DOMAIN`release/list" ~if $MAIN_TAB eq 'release'`class="Highlighted"~/if`>Release</a>
+							</li>
+                            <li style="margin-right:3.5px;">
+                                <a href="#" ~if $MAIN_TAB eq 'report'`class="Highlighted"~/if`>Report</a>
+								<ul>
+									<li><a href='~$DOMAIN`report/application'>Application</a>
+									<li><a href='~$DOMAIN`report/server'>Server</a>
+									<li><a href='~$DOMAIN`report/service'>Service</a>
+									<li><a href='~$DOMAIN`report/serviceType'>ServiceType</a>
+									<li><a href='~$DOMAIN`report/systemUser'>System User</a>
+									<li><a href='~$DOMAIN`report/graph'>Graph - Cluster</a>
+								</ul>
+							</li>-->
+                            <li style="margin-right:3.5px;">
+                                <a href="#" ~if $MAIN_TAB eq 'cron'`class="Highlighted"~/if` style='color:yellow;'>Cron Jobs</a>
+								<ul>
+									<li><a href='~$DOMAIN`cron/list'>View Cron Jobs</a>
+									<li><a href='~$DOMAIN`cron/add'>Add New Cron Job</a>
+									<li><a href='~$DOMAIN`cron/deploy'>Deploy Cron(s)</a>
+								</ul>
+							</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="BreadcrumbsPlaceholder"></div>
+            </div>
+        </div>
+		<input type=hidden name='DOMAIN' id='DOMAIN' value='~$DOMAIN`'/>

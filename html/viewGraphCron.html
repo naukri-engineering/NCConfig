@@ -1,0 +1,150 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Manage Crons</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+            <form method=post id='viewGraphCronFrom'>
+                <input type=hidden name=cronId value='~$cronId`'>
+                <div class='SColumn'>
+
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="startDate" class='row-label'>Date </label></div>
+                        <div class='row-box'>
+                            <input type="text" id="startDate" name="startDate" value='~$startDate`' class='inputcl' style='width:110px;'>
+                            &nbsp; - &nbsp; <input type="text" id="endDate" name="endDate" value='~$endDate`' class='inputcl' style='width:110px;'>
+                        </div>
+                    </div>
+                    <div class="cl10"></div>
+                </div>
+                <div class="NavigationButtons">
+                    <button class="NextButton" id="NextButton" name='submit' value='submit'>Submit</button>
+                </div>
+            </form>
+			<div id='container'>
+			</div>
+		</div>
+    </div>
+	<!-- Lightbox | Delete | Start -->
+	~include file=_delete.html`
+	<!-- Lightbox | Delete | End   -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+
+    <script>
+		window.onload = function(){
+        new JsDatePick({
+            useMode:2,
+            target:"startDate",
+            limitToToday:true,
+            cellColorScheme:"armygreen",
+            dateFormat:"%Y-%m-%d",
+            imgPath:"~$IMG_PATH`",
+            weekStartDay:1
+            });
+            new JsDatePick({
+            useMode:2,
+            target:"endDate",
+            limitToToday:true,
+            cellColorScheme:"armygreen",
+            dateFormat:"%Y-%m-%d",
+            imgPath:"~$IMG_PATH`",
+            weekStartDay:1
+        });
+		}
+    </script>
+
+	~if $log`
+	<script>
+			var chart;
+			chart = new Highcharts.Chart({
+            chart: {
+				renderTo: 'container',
+            },
+            title: {
+                text: null
+            },
+            xAxis: {
+                categories: [~section name=i loop=$log`'~$log[i].startTime`',~/section`]
+            },
+            tooltip: {
+                formatter: function() {
+                    var s;
+                    if (this.point.name) { // the pie chart
+                        s = ''+
+                            this.point.name +': '+ this.y;
+                    } else {
+                        s = ''+
+                            this.x  +': '+ this.y;
+                    }
+                    return s;
+                }
+            },
+			/*
+            labels: {
+                items: [{
+                    html: 'Total fruit consumption',
+                    style: {
+                        left: '40px',
+                        top: '8px',
+                        color: 'black'
+                    }
+                }]
+            },*/
+            series: [{
+                type: 'column',
+                name: 'Execution Time',
+                data: [~section name=i loop=$log`
+                ~if $log[i].cronStatus eq 'ERROR'`
+                    {y:~$log[i].timeTakenInSeconds`,color:'red'},
+				~elseif $log[i].timeTakenInMinutes gt $cron.completionTime`
+					{y:~$log[i].timeTakenInSeconds`,color:'orange'},
+                ~else`
+                    {y:~$log[i].timeTakenInSeconds`,color:'green'},
+                ~/if`
+                ~/section`]
+            }
+            , {
+                type: 'spline',
+                name: 'Average',
+                data: [~section name=i loop=$log`~$log[i].timeTakenInSeconds`,~/section`],
+                marker: {
+					lineWidth: 2,
+					lineColor: Highcharts.getOptions().colors[3],
+					fillColor: 'white'
+                }
+            }, {
+                type: 'pie',
+                name: 'Total consumption',
+                data: [
+					~foreach from=$group key=k item=v`
+					{
+                    name: '~$k`',
+                    y: ~$v`,
+                    ~if $k eq 'ERROR'`color: 'red'~elseif $k eq 'SUCCESS'`color: 'green'~/if`
+					}, 
+					~/foreach`
+                ],
+                center: [100, 80],
+                size: 100,
+                showInLegend: false,
+                dataLabels: {
+                    enabled: false
+                }
+            }]
+        });
+	</script>
+	~/if`
+</body>
+</html>

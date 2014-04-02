@@ -1,0 +1,243 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Manage Crons</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+            <form method=post action="~$DOMAIN`cron/list" name='searchCronForm' id='searchCronForm'>
+                <div class='SColumn'>
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="applicationId" class='row-label'>Application</label></div>
+                        <div class='row-box'>
+                            <select id='applicationId' name='applicationId[]' data-placeholder="Choose a Application ..." class="chzn-select selectcl" multiple>
+                                <option value=""></option>
+                                ~section name=i loop=$applications`
+                                <option value='~$applications[i].applicationId`' ~if $applications[i].applicationId|in_array:$applicationId`selected~/if`>~$applications[i].applicationGroupName` : ~$applications[i].applicationName`</option>
+                                ~/section`
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cl10"></div>
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="serverId" class='row-label'>Server</label></div>
+                        <div class='row-box'>
+                            <select id='serverId' name='serverId[]' data-placeholder="Choose a Server ..." class="chzn-select selectcl" multiple>
+                                <option value=""></option>
+                                ~section name=i loop=$servers`
+                                <option value='~$servers[i].serverId`' ~if $servers[i].serverId|in_array:$serverId`selected~/if`>~$servers[i].serverName` - ~$servers[i].serverRefName`</option>
+                                ~/section`
+                            </select>
+                        </div>
+                    </div>
+			
+					<div class="cl10"></div>	
+					<div class='row-main-drop'>
+						<div class='row-label-main'>
+						<label class='row-label' id='filterOpen'><a href='#' onClick="javascript:$('#moreFilters').show();$('#filterOpen').hide();$('#filterClose').show();"><img align="top" src="~$IMG_PATH`details_open.png"> <span style="padding: 3px 0px 0px; display: inline-block;"> More Filter(s)</span></a></label>
+						<label class='row-label' id='filterClose' style='display:none;' onClick="javascript:$('#moreFilters').hide();$('#filterOpen').show();$('#filterClose').hide();"><a href='#'><img align="top" src="~$IMG_PATH`details_close.png"> <span style="padding: 3px 0px 0px; display: inline-block;"> More Filter(s)</span></a></label>
+						</div>
+					</div>
+					
+					<div id='moreFilters' style='display:none;'>
+                    <div class="cl10"></div>
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="user" class='row-label'>Cron User </label></div>
+                        <div class='row-box'><input type="text" maxlength="50" id="user" name="user" value='~$user`' class='inputcl'><br/>
+                        </div>
+                    </div>
+
+                    <div class="cl10"></div>
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="fromEmail" class='row-label'>From Email </label></div>
+                        <div class='row-box'><input type="text" maxlength="100" id="fromEmail" name="fromEmail" value='~$fromEmail`' class='inputcl'><br/>
+                        </div>
+                    </div>
+
+                    <div class="cl10"></div>
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="toEmail" class='row-label'>To Email </label></div>
+                        <div class='row-box'><input type="text" maxlength="100" id="toEmail" name="toEmail" value='~$toEmail`' class='inputcl'><br/>
+                        </div>
+                    </div>
+
+                    <div class="cl10"></div>
+                    <div class='row-main-drop'>
+                        <div class='row-label-main'><label for="keyword" class='row-label'>Entire Cron Details</label></div>
+                        <div class='row-box'><input type="text" maxlength="100" id="keyword" name="keyword" value='~$keyword`' class='inputcl'> - Search in - Cron Command, Cron Alias & Comment
+                        </div>
+                    </div>
+
+					<!--
+					<div class="cl10"></div>
+                    <div class='row-main'>
+                        <div class='row-label-main'><label for="completionTime" class='row-label'>Completion Time</label></div>
+                        <div class='row-box'>
+							<input type="text" maxlength="4" id="completionTime" name="completionTime" value='~$completionTime`' class='inputcl' style='width:50px;'>
+                        </div>
+					</div>-->
+
+                    <div class='row-main'>
+                        <div class='row-label-main'><label for="maxConcurrency" class='row-label'>Max Concurrency</label></div>
+                        <div class='row-box'><input type="text" maxlength="2" id="maxConcurrency" name="maxConcurrency" value='~$maxConcurrency`' class='inputcl' style='width:50px;'>
+                        </div>
+                    </div>
+
+                    <div class='row-main'>
+                        <div class='row-label-main'><label for="timeAlert" class='row-label'>Time Alert</label></div>
+                        <div class='row-box'><input type="text" maxlength="3" id="timeAlert" name="timeAlert" value='~$timeAlert`' class='inputcl' style='width:50px;'>
+                        </div>
+                    </div>
+
+                    <div class='row-main'>
+                        <div class='row-label-main'><label for="active" class='row-label'>Active</label></div>
+                        <div class='row-box'>
+							<input type="radio" id="active" name="active" value='Y' ~if $active eq 'Y'`checked=true`~/if` class='inputcl'> Active
+							<input type="radio" id="active" name="active" value='N' ~if $active eq 'N'`checked=true`~/if` class='inputcl'> Inactive
+                        </div>
+                    </div>
+					</div>
+                    <div class="cl10"></div>
+                </div>
+                <div class="NavigationButtons">
+                    <button class="NextButton" id="NextButton" name='submit' value='submit'>Submit</button>
+                </div>
+            </form>
+			<script>drop_down();</script>
+
+
+
+			~if $crons`
+			<table cellpadding="0" cellspacing="0" border="0" class="display" id='table1' style='font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;border:1px solid #6E6E6E'>
+			<thead style='background-color:#A4A4A4;color:white;'>
+			<tr>
+            <th></th>
+			<th style='width:100px;'>Minute</th>
+			<th style='width:100px;'>Hour</th>
+			<th style='width:50px;'>Day</th>
+			<th style='width:50px;'>Month</th>
+			<th style='width:50px;'>Weekday</th>
+			<th style='width:450px;'>Command</th>
+			<th style='width:20px;'>Last Status</th>
+			<th style='width:20px;'>Last Start Time</th>
+			</tr>
+			</thead>
+			</table>
+			~/if`
+		</div>
+    </div>
+	<!-- Lightbox | Delete | Start -->
+	~include file=_delete.html`
+	<!-- Lightbox | Delete | End   -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+
+	<!-- Table data | Start -->
+	<!--~include file=_tabledata.html`-->
+	<!-- Table data | End -->
+
+	<script>
+	var anOpen = [];
+    var sImageUrl = "~$IMG_PATH`";
+    var oTable = $('#table1').dataTable( {
+		"aaSorting": [[ 0, "asc" ]],
+		"sDom": 'T<"clear">lfrtip',
+		"oTableTools": { "sSwfPath": "../images/copy_csv_xls_pdf.swf" },	
+		"aoColumns": [
+            {
+               "mDataProp": null,
+               "sClass": "control center",
+               "sDefaultContent": '<img src="'+sImageUrl+'details_open.png'+'">'
+            },
+			{ "mDataProp": "minute" },
+			{ "mDataProp": "hour" },
+			{ "mDataProp": "day" },
+			{ "mDataProp": "month" },
+			{ "mDataProp": "weekday" },
+			{ "mDataProp": "command" },
+			{ "mDataProp": "cronStatus" },
+			{ "mDataProp": "startTime" },
+        ],
+		"aaData": [
+		~section name=i loop=$crons`
+		{
+			~if $crons[i].active eq 'N'`
+			"DT_RowClass": "inactive",
+			~elseif $crons[i].cronStatus eq 'ERROR'`
+			"DT_RowClass": "error",
+			~/if`
+			"cronId": "~$crons[i].cronId`",
+			"applicationName": "~$crons[i].applicationName`",
+			"serverName": "~$crons[i].serverName`",
+			"minute": "~$crons[i].minute`",
+			"hour": "~$crons[i].hour`",
+			"day": "~$crons[i].day`",
+			"month": "~$crons[i].month`",
+			"weekday": "~$crons[i].weekday`",
+			"command": "~$crons[i].command`",
+			"completionTime": "~$crons[i].completionTime`",
+			"maxConcurrency": "~$crons[i].maxConcurrency`",
+			"timeAlert": "~$crons[i].timeAlert`",
+			"fromEmail": "~$crons[i].fromEmail`",
+			"toEmail": "~$crons[i].toEmail`",
+			"cronAlias": "~$crons[i].cronAlias`",
+			"active": "~$crons[i].active`",
+			"cronStatus": "~$crons[i].cronStatus`",
+			"startTime": "~$crons[i].startTime`",
+			"user": "~$crons[i].user`",
+			"comment": ~$crons[i].comment`,
+		},
+		~/section`
+		]
+    } );
+	$('#table1 td.control').live( 'click', function () {
+	var nTr = this.parentNode;
+	var i = $.inArray( nTr, anOpen );
+	if ( i === -1 ) {
+      $('img', this).attr( 'src', sImageUrl+"details_close.png" );
+      oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+      anOpen.push( nTr );
+    }
+    else {
+      $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+      oTable.fnClose( nTr );
+      anOpen.splice( i, 1 );
+    }
+	} );
+
+	function fnFormatDetails( oTable, nTr )
+	{
+	var oData = oTable.fnGetData( nTr );
+	var sOut =
+    '<div style="font-size:12px;">'+
+      '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;font-size:12px;" >'+
+        '<tr><td>Cron Id:</td><td>'+oData.cronId+'</td></tr>'+
+        '<tr><td>Application:</td><td>'+oData.applicationName+'</td></tr>'+
+        '<tr><td>Server:</td><td>'+oData.serverName+'</td></tr>'+
+        '<tr><td>Completion Time:</td><td>'+oData.completionTime+'</td></tr>'+
+        '<tr><td>Max Concurrency:</td><td>'+oData.maxConcurrency+'</td></tr>'+
+        '<tr><td>Time Alert:</td><td>'+oData.timeAlert+'</td></tr>'+
+        '<tr><td>From Email:</td><td>'+oData.fromEmail+'</td></tr>'+
+        '<tr><td>To Email:</td><td>'+oData.toEmail+'</td></tr>'+
+        '<tr><td>Cron Alias:</td><td>'+oData.cronAlias+'</td></tr>'+
+        '<tr><td>Active:</td><td>'+oData.active+'</td></tr>'+
+        '<tr><td>Cron User:</td><td>'+oData.user+'</td></tr>'+
+        '<tr><td>Comment:</td><td>'+oData.comment+'</td></tr>'+
+        '<tr><td>Action:</td><td><a href="#" onClick="lightbox_delete(\'~$DOMAIN`cron/comment?active='+oData.active+'&cronId='+oData.cronId+'\')"><img src=\'~$IMG_PATH`hash.png\' height=14 width=14 /></a>&nbsp;&nbsp;&nbsp;<a href="~$DOMAIN`cron/edit?cronId='+oData.cronId+'"><img src=\'~$IMG_PATH`edit.png\' /></a>&nbsp;&nbsp;&nbsp;<a href="#" onClick="lightbox_delete(\'~$DOMAIN`cron/delete?cronId='+oData.cronId+'\')"><img src="~$IMG_PATH`delete.png" /></a>&nbsp;&nbsp;&nbsp;<a href="~$DOMAIN`cron/viewLog?cronId='+oData.cronId+'" target=_blank><img src="~$IMG_PATH`log.png" /></a>&nbsp;&nbsp;&nbsp;<a href="~$DOMAIN`cron/viewGraph?cronId='+oData.cronId+'" target=_blank><img src="~$IMG_PATH`graph.png" /></a></td></tr>'+
+      '</table>'+
+    '</div>';
+	return sOut;
+	}
+	</script>
+</body>
+</html>

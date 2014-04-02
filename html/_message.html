@@ -1,0 +1,11 @@
+            <div>
+                ~if $error`
+                    <div class='errorM' id='errorM'>~$error`</div>
+                ~/if`
+                ~if $success`
+                    <div class='successM' id='successM'>~$success`</div>
+                ~/if`
+				~if $warning`
+                    <div class='warningM' id='warningM'>~$warning`</div>
+				~/if`
+            </div>

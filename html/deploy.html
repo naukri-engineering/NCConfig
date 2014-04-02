@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Deploy</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			~include file=_message.html`
+			~if !$running`
+			<form method=post id='deployForm'>
+				<div class='SColumn'>
+					<div class='row-main'>
+						<div class='row-label-main' style='width:300px;'><label for="username" class='row-label'>SSH Username <span class='required'>*</span></label></div>
+						<div class='row-box'><input type="text" maxlength="50" id="username" name="username" class='inputcl'><label class='error' style='display:none'></label></div>
+					</div>
+                    <div class='row-main'>
+                        <div class='row-label-main' style='width:300px;'><label for="password" class='row-label'>SSH Password <span class='required'>*</span></label></div>
+                        <div class='row-box'><input type="password" maxlength="15" id="password" name="password" class='inputcl'><label class='error' style='display:none'></label></div>
+                    </div>
+                    <div class='row-main'>
+                        <div class='row-label-main' style='width:300px;'><label for="port" class='row-label'>SSH Port <span class='required'>*</span></label></div>
+                        <div class='row-box'><input type="port" maxlength="15" id="port" name="port" class='inputcl'><label class='error' style='display:none'></label></div>
+                    </div>
+					<div class="cl10"></div>
+				</div>
+				<div class="NavigationButtons">
+					<button class="NextButton" id="NextButton" name='submit' value='submit'>Deploy</button>
+				</div>
+			</form>
+			~else`
+			<div class='SColumn'>
+				<pre id='readLogFile' style='padding:10px;white-space:pre-wrap;word-wrap:break-word'>
+				</pre>
+			</div>
+			<script type="text/javascript">
+			var f = true;
+			var auto_refresh = setInterval(
+			function ()
+			{
+			if(f) {
+				var url = "~$DOMAIN`release/readLogFile?logFile=~$logFile`&releaseId=~$releaseId`&f=1";
+				$.get(url,function(str) {
+				if(str.indexOf("command finished ") >=0) {
+					$('#successM').html('Deployment Complete');
+					f = false;
+				}
+				});
+				$('#readLogFile').load(url).fadeIn("slow");
+			}
+			}, 3000);	
+			</script>
+			~/if`
+		</div>
+    </div>
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+</body>
+</html>

@@ -1,0 +1,179 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>View Server</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+			<div class='SColumn'>
+				<div class='row-main'>
+					<div class='row-label-main'><label for="serverName" class='row-label'>Server Name </label></div>
+					<div class='row-box txtLabel'>: ~$server.serverName`</div>
+				</div>
+				<div class='row-main'>
+					<div class='row-label-main'><label for="serverName" class='row-label'>Server IP </label></div>
+					<div class='row-box txtLabel'>: ~$server.serverIP`</div>
+				</div>
+				<div class='row-main'>
+					<div class='row-label-main'><label for="serverName" class='row-label'>Reference Name </label></div>
+					<div class='row-box txtLabel'>: ~$server.serverRefName`</div>
+				</div>
+			</div>
+			<div class="NavigationButtons">
+			~if $userROLE|in_array:$privilegeList.server.edit`
+				<a href='~$DOMAIN`server/edit?serverId=~$serverId`'><button class="NextButton" id="NextButton" name='submit' value='submit'>Edit Server</button></a>
+			~/if`
+            ~if $userROLE|in_array:$privilegeList.service.add`
+            ~if $serverId`
+				<a href='#' onClick="lightbox_service('');"><button class="NextButton" id="NextButton" name='submit' value='submit'>Add Service</button></a>
+			~/if`
+			~/if`
+			</div>
+			<!--
+			~if $userROLE|in_array:$privilegeList.service.add`
+			~if $serverId`
+				<div class="cl10"></div>
+				<center>
+				~if !$services`<h2>Zero services running on this server. Want to add ?</h2>~/if`
+			<img src='~$IMG_PATH`database_add.png' style='margin-bottom:-15px;' height=40 width=40/> <a style='color:#0080FF;' href='#' onClick="lightbox_service('');"><strong>Add Service</strong></a>
+				</center>
+			~/if`
+			~/if`-->	
+			~if $serverId && $services`
+			<div class="cl10"></div>
+			<div class="cl10"></div>
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id='table1' style='font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;border:1px solid #6E6E6E'>
+                <thead style='background-color:#A4A4A4;color:white;text-align:left;'>
+                    <tr>
+                        <th>Service Type</th>
+                        <th>Port</th>
+                        <th>DNS</th>
+                        <th>Reference Name</th>
+						~if $userROLE|in_array:$privilegeList.service.add`
+                        <th>Edit</th>
+						~/if`
+						~if $userROLE|in_array:$privilegeList.service.delete`
+                        <th>Delete</th>
+						~/if`
+                    </tr>
+                </thead>
+                <tbody>
+				~section name=i loop=$services`
+                <tr>
+                    <td>~$services[i].serviceTypeName`</td>
+                    <td>~$services[i].servicePort`</td>
+                    <td>
+						~if $services[i].serviceDNS`~$services[i].serviceDNS` (P)~/if`
+						~if $services[i].serviceDNS2`,~$services[i].serviceDNS2` (2)~/if`
+						~if $services[i].serviceDNS3`,~$services[i].serviceDNS3` (3)~/if`
+					</td>
+                    <td>~$services[i].serviceRefName`</td>
+					~if $userROLE|in_array:$privilegeList.service.add`
+                    <td><a href='#' onClick="lightbox_service(~$services[i].serviceId`);"><img src='../images/edit.png' /></a></td>
+					~/if`
+					~if $userROLE|in_array:$privilegeList.service.delete`
+                    <td><a href='#' onClick="lightbox_delete('~$DOMAIN`service/delete?serviceId=~$services[i].serviceId`&serverId=~$services[i].serverId`')"><img src='../images/delete.png' /></a></td>
+					~/if`
+                </tr>
+				~/section`
+                </tbody>
+            </table>
+			<!--Table Data | Start -->
+			~include file=_tabledata.html`
+			<!--Table Data | End   -->
+
+			~/if`
+
+		</div>
+    </div>
+
+    <!-- LightBox | Start -->
+	~if $serverId`
+    <div class="lb_bak" id="lb_bak_service"></div>
+    <div class="lb_box" id="lb_box_service" style='height:330px;top:10%;overflow-x: hidden;overflow-y: auto;'><b>Add Service</b><div class="lb_close" id='lb_close_service'>X</div>
+		<div class="cl10"></div>
+		<form method=post id='serviceForm'>
+		<input type=hidden name='serverId' id='serverId' value='~$serverId`'>
+		<input type=hidden name='serviceId' id='serviceId' value='~$serviceId`'>
+		<input type=hidden name='serviceTypeId_old' id='serviceTypeId_old' value='~$serviceTypeId`'>
+		<input type=hidden name='servicePort_old' id='servicePort_old' value='~$servicePort`'>
+		<input type=hidden name='serviceDNS_old' id='serviceDNS_old' value='~$serviceDNS`'>
+		<input type=hidden name='serviceDNS2_old' id='serviceDNS2_old' value='~$serviceDNS2`'>
+		<input type=hidden name='serviceDNS3_old' id='serviceDNS3_old' value='~$serviceDNS3`'>
+		<input type=hidden name='serviceRefName_old' id='serviceRefName_old' value='~$serviceRefName`'>
+		<div class='SColumn'>
+			<div class='row-main-drop'>
+				<div class='row-label-main'><label for="serviceTypeId" class='row-label'>Service Type <span class='required'>*</span></label></div>
+				<div class='row-box'>
+					<select id='serviceTypeId' name='serviceTypeId' class="selectcl" style='height:25px;'>
+						<option value="">--Choose Service Type--</option>
+						~section name=i loop=$serviceTypes`
+						<option value="~$serviceTypes[i].serviceTypeId`">~$serviceTypes[i].serviceTypeName`</option>
+						~/section`
+					</select>
+					<label class='error' style='display:none'></label>
+				</div>
+			</div>
+
+			<div class="cl10"></div>
+			<div class='row-main'>
+				<div class='row-label-main'><label for="servicePort" class='row-label'>Service Port <span class='required'>*</span></label></div>
+				<div class='row-box'><input type="text" maxlength="50" id="servicePort" name="servicePort" class='inputcl'><label class='error' style='display:none' id='servicePortErr'></label></div>
+			</div>
+            <div class='row-main'>
+                <div class='row-label-main'><label for="serviceRefName" class='row-label'>Reference Name <span class='required'>*</span></label></div>
+                <div class='row-box'><input type="text" maxlength="50" id="serviceRefName" name="serviceRefName" class='inputcl'><label class='error' style='display:none' id='serviceRefNameErr'></label></div>
+            </div>
+
+			<div class='row-main'>
+				<div class='row-label-main'><label for="serviceDNS" class='row-label'>Service DNS (1)</label></div>
+				<div class='row-box'>
+					<input type="text" maxlength="50" id="serviceDNS" name="serviceDNS" class='inputcl' style='width:210px;'>&nbsp;&nbsp;&nbsp;
+					<span id='addmore2'><a href='#' onClick="$('#rowDNS2').css('display','block');$('#addmore2').css('display','none');">+ Add More</a></span><label class='error' style='display:none' id='serviceDNSErr'></label>
+				</div>
+			</div>
+
+            <div class='row-main' style='display:none;' id='rowDNS2'>
+                <div class='row-label-main'><label for="serviceDNS2" class='row-label'>Service DNS (2)</label></div>
+                <div class='row-box'>
+                    <input type="text" maxlength="50" id="serviceDNS2" name="serviceDNS2" class='inputcl' style='width:210px;'>&nbsp;&nbsp;&nbsp;
+                    <span id='addmore3'><a href='#' onClick="$('#rowDNS3').css('display','block');$('#addmore3').css('display','none');">+ Add More</a></span><label class='error' style='display:none' id='serviceDNS2Err'></label>
+                </div>
+            </div>
+
+
+            <div class='row-main' style='display:none;' id='rowDNS3'>
+                <div class='row-label-main'><label for="serviceDNS3" class='row-label'>Service DNS (3)</label></div>
+                <div class='row-box'>
+                    <input type="text" maxlength="50" id="serviceDNS3" name="serviceDNS3" class='inputcl' style='width:210px;'>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+			<div style='float:right;margin-bottom:5px;'><span class='required'>*</span> Required fields&nbsp;&nbsp;&nbsp;</div>
+			<div class="cl05"></div>
+		</div>
+		<div class="NavigationButtons">
+			<button class="NextButton" id="NextButton" name='submit' value='submit' id='serviceSubmit'>Save</button>
+		</div>
+		</form>
+		<center><img id='loading' src='~$IMG_PATH`loading.gif' style='display:none;'/></center>
+	</div>
+	~/if`
+    <!-- LightBox | End -->
+
+    <!-- Lightbox | Delete | Start -->
+    ~include file=_delete.html`
+    <!-- Lightbox | Delete | End   -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+</body>
+</html>

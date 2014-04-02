@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Configure Configurations</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+
+			~if $configurations`
+			<table cellpadding="0" cellspacing="0" border="0" class="display" id='table1' style='font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;border:1px solid #6E6E6E'>
+				<thead style='background-color:#A4A4A4;color:white;text-align:left;'>
+					<tr>
+						<th>Application</th>
+						<th>Service</th>
+						<th>System User (Active)</th>
+						<th>Tag</th>
+						~if $userROLE|in_array:$privilegeList.configuration.edit`
+						<th align=center>Edit</th>
+						~/if`
+						~if $userROLE|in_array:$privilegeList.configuration.delete`
+						<th align=center>Delete</th>
+						~/if`
+					</tr>
+				</thead>
+				<tbody>
+				~section name=i loop=$configurations`
+				<tr>
+					<td>~$configurations[i].applicationName` (~$configurations[i].applicationId`)</td>
+					<td>~$configurations[i].service`</td>
+					<td>~$configurations[i].systemUser`</td>
+					<td>~$TAG_DELIMITER`~$configurations[i].configurationTag`_*~$TAG_DELIMITER`</td>
+					~if $userROLE|in_array:$privilegeList.configuration.edit`
+					<td align=center><a href='~$DOMAIN`configuration/edit?configurationId=~$configurations[i].configurationId`'><img src='../images/edit.png' /></a></td>
+					~/if`
+					~if $userROLE|in_array:$privilegeList.configuration.delete`
+					<td align=center><a href='#' onClick="lightbox_delete('~$DOMAIN`configuration/delete?configurationId=~$configurations[i].configurationId`')"><img src='../images/delete.png' /></a></td>
+					~/if`
+				</tr>
+				~/section`
+				</tbody>
+			</table>
+			<br/><br/>
+			~/if`
+		</div>
+    </div>
+   <!-- Lightbox | Delete | Start -->
+    ~include file=_delete.html`
+    <!-- Lightbox | Delete | End   -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+
+    <!-- Table data | Start -->
+    ~include file=_tabledata.html`
+    <!-- Table data | End -->
+</body>
+</html>

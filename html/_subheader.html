@@ -1,0 +1,79 @@
+            <div class="grid-24 tWrapper">
+				~if $MODULE eq 'server'`
+                <h1>Configure Servers</h1>
+                <ul class="twist">
+				~if $userROLE|in_array:$privilegeList.server.add`
+				<li><a href="~$DOMAIN`server/add">Add</a></li>
+				~/if`
+                <li><a href="~$DOMAIN`server/list">View</a></li>
+                </ul>
+				~/if`
+
+				~if $MODULE eq 'configuration'`
+                <h1>Manage Configurations</h1>
+                <ul class="twist">
+				~if $userROLE|in_array:$privilegeList.configuration.add`
+                <li><a href="~$DOMAIN`configuration/add">Add</a></li>
+				~/if`
+                <li><a href="~$DOMAIN`configuration/list">View</a></li>
+                </ul>
+				~/if`
+				~if $MODULE eq 'configureApplication'`
+                <h1>Configure Applications</h1>
+                <ul class="twist">
+				~if $userROLE|in_array:$privilegeList.configureApplication.add`
+                <li><a href="~$DOMAIN`configureApplication/add">Add</a></li>
+				~/if`
+                <!--<li><a href="~$DOMAIN`application/list">View</a></li>-->
+                </ul>
+				~/if`
+				~if $MODULE eq 'systemUser'`
+                <h1>Manage System Users</h1>
+                <ul class="twist">
+				~if $userROLE|in_array:$privilegeList.systemUser.add`
+                <li><a href="#" onclick="lightbox_systemUser('');">Add</a></li>
+				~/if`
+                <li><a href="~$DOMAIN`systemUser/list">View</a></li>
+                </ul>
+				~/if`
+				~if $MODULE eq 'application'`
+                <h1>Manage Applications</h1>
+                <ul class="twist">
+				~if $userROLE|in_array:$privilegeList.application.add`
+                <li><a href="#" onclick="lightbox_application('');">Add</a></li>
+				~/if`
+                </ul>
+				~/if`
+				~if $MODULE eq 'release'`
+				<h1>Release Manager</h1>
+				~/if`
+				~if $MODULE eq 'user'`
+					~if $ACTION eq 'changePassword'`
+			            <h1>Change Password</h1>
+					~else`
+			            <h1>Manage Users</h1>
+						<ul class="twist">
+						~if $userROLE|in_array:$privilegeList.user.add`
+				        <li><a href="#" onclick="lightbox_user('');">Add</a></li>
+						~/if`
+						</ul>
+					~/if`
+				~/if`
+
+                ~if $MODULE eq 'cron'`
+                <h1>Manage Cron Jobs</h1>
+				~if $ACTION eq 'add' || $ACTION eq 'edit'`
+				<div style='clear:both;margin-bottom:15px;'>
+				Cron jobs allow you to automate certain commands or scripts on your site. You can set a command or script to run at a specific time every day, week, etc. For example, you could set a cron job to delete temporary files every week to free up disk space.<br/><br/>
+				<span class='err'>Warning:</span> You need to have a good knowledge of Linux commands before you can use cron jobs effectively.
+				</div>
+				~/if`
+                <ul class="twist">
+                <li><a href="~$DOMAIN`cron/add">Add</a></li>
+                <li><a href="~$DOMAIN`cron/list">View</a></li>
+                <li><a href="~$DOMAIN`cron/deploy">Deploy</a></li>
+                </ul>
+				<br/>
+                ~/if`
+            </div>
+

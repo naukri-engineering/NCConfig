@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+	~include file=_meta.html`
+    <title>Manage Applications</title>
+</head>
+<body>
+    <div id="bodycolumn">
+		<!-- Header | Start -->
+		~include file=_header.html`
+		<!-- Header | End -->
+        <div id="BodyContent" class="container">
+			<!-- Sub Header | Start -->
+			~include file=_subheader.html`
+			<!-- Sub Header | End   -->
+			~include file=_message.html`
+
+			~if $applications`
+			<table cellpadding="0" cellspacing="0" border="0" class="display" id='table1' style='font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;border:1px solid #6E6E6E'>
+				<thead style='background-color:#A4A4A4;color:white;text-align:left;'>
+					<tr>
+						<th>Application Id</th>
+						<th>Group</th>
+						<th>Application</th>
+						<th>Application User</th>
+						<th>Configure</th>
+						~if $userROLE|in_array:$privilegeList.application.edit`
+						<th>Edit</th>
+						~/if`
+						~if $userROLE|in_array:$privilegeList.application.delete`
+						<th>Delete</th>
+						~/if`
+					</tr>
+				</thead>
+				<tbody>
+				~section name=i loop=$applications`
+				<tr>
+					<td>~$applications[i].applicationId`</td>
+					<td>~$applications[i].applicationGroupName`</td>
+					<td>~$applications[i].applicationName`</td>
+					<td>~$applications[i].email`</td>
+					<td><a href='~$DOMAIN`configureApplication/view?applicationId=~$applications[i].applicationId`'><img src='~$IMG_PATH`addConfigSmall.jpg' height=23 width=23 /></a></td>
+					~if $userROLE|in_array:$privilegeList.application.edit`
+					<td><a href='#' onclick="lightbox_application('~$applications[i].applicationId`');"><img src='../images/edit.png' /></a></td>
+					~/if`
+					~if $userROLE|in_array:$privilegeList.application.delete`
+					<td><a href='#' onClick="lightbox_delete('~$DOMAIN`application/delete?applicationId=~$applications[i].applicationId`')"><img src='../images/delete.png' /></a></td>
+					~/if`
+				</tr>
+				~/section`
+				</tbody>
+			</table>
+			<br/><br/>
+			~/if`
+		</div>
+    </div>
+	<!-- Lightbox | Application | Start -->
+	~include file=_application.html`
+	<!-- Lightbox | Application | End   -->
+
+	<!-- Lightbox | Delete | Start -->
+	~include file=_delete.html`
+	<!-- Lightbox | Delete | End   -->
+
+    <!-- Footer | Start -->
+    ~include file=_footer.html`
+    <!-- Footer | End -->
+
+	<!-- Table data | Start -->
+	~include file=_tabledata.html`
+	<!-- Table data | End -->
+</body>
+</html>
