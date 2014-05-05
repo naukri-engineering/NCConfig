@@ -1,0 +1,125 @@
+CREATE THE MySQL DATABASE
+--------------------------
+
+This step is only necessary if you don't already have a database set up (e.g.,
+by your host). In the following examples, 'username' is an example MySQL user
+which has the CREATE and GRANT privileges. Use the appropriate user name for
+your system.
+
+First, you must create a new database for your NCConfig (here, 'databasename'
+is the name of the new database):
+
+  mysqladmin -u username -p create databasename
+
+MySQL will prompt for the 'username' database password and then create the
+initial database files. Next you must log in and set the access database rights:
+
+  mysql -u username -p
+
+Again, you will be asked for the 'username' database password. At the MySQL
+prompt, enter the following command:
+
+  GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER
+  ON databasename.*
+  TO 'username'@'localhost' IDENTIFIED BY 'password';
+
+where
+
+ 'databasename' is the name of your database
+ 'username@localhost' is the username of your MySQL account
+ 'password' is the password required for that username
+
+Note: Unless your database user has all of the privileges listed above, you will
+not be able to run MyTrend.
+
+If successful, MySQL will reply with:
+
+  Query OK, 0 rows affected
+
+
+CREATE FOLLOWING TABLES
+-----------------------
+
+CREATE TABLE `application` (
+  `applicationId` int(11) NOT NULL AUTO_INCREMENT,
+  `applicationGroupName` varchar(50) DEFAULT NULL,
+  `applicationName` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`applicationId`),
+  UNIQUE KEY `applicationName` (`applicationName`)
+)
+
+CREATE TABLE `connect` (
+  `connectId` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) DEFAULT NULL,
+  `uniqueId` varchar(50) DEFAULT NULL,
+  `loginTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastAccessTime` datetime DEFAULT NULL,
+  `logoutTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`connectId`),
+  KEY `email` (`email`),
+  KEY `uniqueId` (`uniqueId`)
+)
+
+CREATE TABLE `cron` (
+  `cronId` int(11) NOT NULL AUTO_INCREMENT,
+  `applicationId` int(11) DEFAULT NULL,
+  `serverId` int(11) DEFAULT NULL,
+  `minute` varchar(100) DEFAULT NULL,
+  `hour` varchar(100) DEFAULT NULL,
+  `day` varchar(100) DEFAULT NULL,
+  `month` varchar(100) DEFAULT NULL,
+  `weekday` varchar(100) DEFAULT NULL,
+  `command` varchar(200) DEFAULT NULL,
+  `completionTime` int(11) DEFAULT NULL,
+  `comment` text,
+  `maxConcurrency` int(11) DEFAULT '0',
+  `timeAlert` int(11) DEFAULT '0',
+  `fromEmail` varchar(100) DEFAULT NULL,
+  `toEmail` varchar(255) DEFAULT NULL,
+  `cronAlias` varchar(100) DEFAULT NULL,
+  `active` char(1) DEFAULT 'Y',
+  `user` varchar(100) DEFAULT NULL,
+  `cronOutput` enum('Y','N') DEFAULT 'Y',
+  `updatedBy` varchar(100) DEFAULT NULL,
+  `updatedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`cronId`)
+) 
+
+CREATE TABLE `cronUser` (
+  `cronUser` varchar(100) NOT NULL,
+  PRIMARY KEY (`cronUser`)
+)
+
+CREATE TABLE `cron_status` (
+  `statusId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `cronId` int(11) NOT NULL DEFAULT '0',
+  `cronStatus` enum('SUCCESS','ERROR') NOT NULL DEFAULT 'SUCCESS',
+  `cronOutput` text NOT NULL,
+  `startTime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `endTime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `logTime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`statusId`),
+  KEY `cronId` (`cronId`),
+  KEY `logTime` (`logTime`)
+)
+
+CREATE TABLE `server` (
+  `serverId` int(11) NOT NULL AUTO_INCREMENT,
+  `serverName` varchar(50) DEFAULT NULL,
+  `serverIP` varchar(15) DEFAULT NULL,
+  `serverRefName` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`serverId`),
+  UNIQUE KEY `serverName` (`serverName`),
+  UNIQUE KEY `serverIP` (`serverIP`),
+  UNIQUE KEY `serverRefName` (`serverRefName`)
+)
+
+CREATE TABLE `user` (
+  `userId` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `role` enum('READ_ONLY','ADMIN','APP_MANAGER','OPERATIONS') DEFAULT 'READ_ONLY',
+  PRIMARY KEY (`userId`),
+  UNIQUE KEY `email` (`email`)
+)

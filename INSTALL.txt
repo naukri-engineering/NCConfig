@@ -1,0 +1,50 @@
+INSTALLATION
+------------
+
+1. Download and extract NCConfig.
+
+   To download and extract the files, on a typical Unix/Linux command line, use
+   the following commands (assuming you want version x.y of MyTrend in .tar.gz
+   format):
+
+     tar -zxvf NCConfig-x.y.tar.gz
+     
+     unzip NCConfig-x.y.zip
+
+   This will create a new directory NCConfig-x.y/ containing all NCConfig files and
+   directories. Then, to move the contents of that directory into a directory
+   within your web server's document root or your public HTML directory,
+   continue with this command:
+
+     mv NCConfig-x.y/* /path/to/your/installation
+
+2. Create the NCConfig database.
+
+   Because NCConfig stores all site information in a database, you must create
+   this database in order to install NCConfig, and grant NCConfig certain database
+   privileges (such as the ability to create tables). For details, consult
+   INSTALL.mysql.txt.
+
+   Take note of the username, password, database name, and hostname as you
+   create the database. You will enter this information during the install.
+
+3. Config Changes.
+   
+   a. config/settings.ini.php
+      Add the mysql database credential details in settings.ini.php
+
+   b. config/config.php
+      Do the changes in your config file like adding domain name, root path, SVN path etc.
+
+   c. mycronic.php
+      Add the mysql database credential details in mycronic.php
+
+   The most common steps you may need to perform are:
+
+   a. Permissons.
+
+      For example, on a Unix/Linux command line, you can grant everyone
+      (including the web server) permission to write to the sites/default
+      directory with this command:
+
+      chmod -R 777 cache

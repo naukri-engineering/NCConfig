@@ -2,10 +2,10 @@
 
 try {
     $cronStatusDb = array(
-        'host' => '{ncconfig1.resdex.com}',
+        'host' => 'host_name',
         'username' => 'ncconfig',
-        'password' => 'w3@the$124',
-        'database' => 'ncconfig'
+        'password' => 'password',
+        'database' => 'database_name'
     );
 
 
