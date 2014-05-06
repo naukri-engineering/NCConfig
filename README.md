@@ -24,10 +24,11 @@ Features
 
 Screenshots
 -----------
-* ![ScreenShot 1](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot1.png)
-* ![ScreenShot 2](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot2.png)
-* ![ScreenShot 3](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot3.png)
-* ![ScreenShot 4](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot4.png)
+* ![ScreenShot 1](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot-1.png)
+* ![ScreenShot 2](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot-2.png)
+* ![ScreenShot 3](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot-3.png)
+* ![ScreenShot 4](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot-4.png)
+* ![ScreenShot 5](https://github.com/naukri-engineering/NCConfig/blob/master/screenshot/Screenshot-5.png)
 
 Contributors
 ------------
